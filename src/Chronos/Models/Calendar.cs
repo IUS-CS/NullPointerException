@@ -23,15 +23,13 @@ namespace Chronos.Models
          * Returns a list of upcoming events on a user's calender
          * This is most just a proof of concept of integration with the Google Calendar API
          */
-        public List<String> getEvents ()
+        public List<String> GetEvents ()
         {
             UserCredential credential;
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "", "client_secret.json");
-            using (var stream =
-                new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
             {
-                string credPath = System.Environment.GetFolderPath(
-                    System.Environment.SpecialFolder.Personal);
+                string credPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
                 credPath = Path.Combine(credPath, ".credentials/calendar-dotnet-quickstart.json");
 
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
@@ -39,13 +37,13 @@ namespace Chronos.Models
                     Scopes,
                     "user",
                     CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
+                    new FileDataStore(credPath, true)
+                ).Result;
                 Console.WriteLine("Credential file saved to: " + credPath);
             }
 
             // Create Google Calendar API service.
-            var service = new CalendarService(new BaseClientService.Initializer()
-            {
+            var service = new CalendarService(new BaseClientService.Initializer() {
                 HttpClientInitializer = credential,
                 ApplicationName = ApplicationName,
             });
