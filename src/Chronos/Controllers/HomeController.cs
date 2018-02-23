@@ -20,6 +20,9 @@ namespace Chronos.Controllers
             list.Items.Add("Do that");
            
             Calendar userCalendar = new Calendar();
+            userCalendar.StartTime = DateTime.Today;
+            userCalendar.EndTime = DateTime.Today.AddDays(7);
+
             GroupContentModel groupContent = new GroupContentModel();
             groupContent.TodoList = list;
             groupContent.Calendar = userCalendar;
