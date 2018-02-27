@@ -31,5 +31,9 @@ namespace Chronos.Controllers
         public ViewResult Login() {
             return View();
         }
+        public ActionResult userProfile()
+        {
+            return View();
+        }
     }
 }
