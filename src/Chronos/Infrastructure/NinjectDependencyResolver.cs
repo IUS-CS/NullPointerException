@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Moq;
 using Chronos.Abstract;
 using Chronos.Entities;
+using Chronos.Concrete;
 
 namespace Chronos.Infrastructure
 {
@@ -41,7 +42,7 @@ namespace Chronos.Infrastructure
                 new User { Id = 4, Username = "Reza" }
             });
 
-            kernel.Bind<IUserRepository>().ToConstant(mock.Object);
+            kernel.Bind<IUserRepository>().To<UserRepository>();
         }
     }
 }

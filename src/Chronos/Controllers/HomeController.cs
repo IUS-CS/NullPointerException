@@ -21,7 +21,7 @@ namespace Chronos.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            List<User> members = (List<User>) this.userRepository.Users;
+            var members = this.userRepository.Users;
 
             TodoList list = new TodoList {
                 Items = new List<string>()
