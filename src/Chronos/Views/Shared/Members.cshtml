@@ -1,4 +1,10 @@
-﻿<div id="members" class="tab-pane fade in">
+﻿@model Chronos.Models.GroupContentModel
+
+<div id="members" class="tab-pane fade in">
     <h2>Members</h2>
     <p>List of Members</p>
+    @foreach (var member in @Model.Members)
+    {
+        <p>@member.Username</p>
+    }
 </div>
