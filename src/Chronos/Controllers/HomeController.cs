@@ -19,8 +19,11 @@ namespace Chronos.Controllers
             this.userRepository = userRepositoryParam;
         }
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(User user)
         {
+            user.Username = "new user";
+            userRepository.Insert(user);
+            userRepository.Save();
             var members = this.userRepository.Users;
 
             TodoList list = new TodoList {

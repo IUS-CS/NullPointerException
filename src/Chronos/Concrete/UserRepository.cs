@@ -15,5 +15,15 @@ namespace Chronos.Concrete
         {
             get { return context.Users; }
         }
+
+        public void Insert(User user)
+        {
+            context.Users.Add(user);
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
     }
 }

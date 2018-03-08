@@ -9,5 +9,7 @@ namespace Chronos.Abstract
     public interface IUserRepository
     {
         IEnumerable<User> Users { get; }
+        void Insert(User user);
+        void Save();
     }
 }
