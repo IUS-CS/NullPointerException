@@ -19,9 +19,10 @@ namespace Chronos.Controllers
             this.userRepository = userRepositoryParam;
         }
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(User user)
         {
-            List<User> members = (List<User>) this.userRepository.Users;
+      
+            var members = this.userRepository.Users;
 
             TodoList list = new TodoList {
                 Items = new List<string>()
@@ -39,8 +40,20 @@ namespace Chronos.Controllers
             groupContent.Members = members;
             return View(groupContent);
         }
-        public ViewResult Login() {
+        [HttpGet]
+        public ActionResult Login() {
             return View();
+        }
+        [HttpPost]
+        public RedirectToRouteResult Login(User user)
+        {
+            var result = userRepository.GetUserByUsername(user.Username);
+            if (result == null)
+            {
+                userRepository.Insert(user);
+                userRepository.Save();
+            }
+            return RedirectToAction("Index");
         }
     }
 }

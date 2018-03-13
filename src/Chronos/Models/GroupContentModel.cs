@@ -10,6 +10,6 @@ namespace Chronos.Models
     {
         public TodoList TodoList { get; set; }
         public Calendar Calendar { get; set; }
-        public List<User> Members { get; set; }
+        public IEnumerable<User> Members { get; set; }
     }
 }
