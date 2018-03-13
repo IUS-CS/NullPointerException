@@ -44,8 +44,12 @@ namespace Chronos.Controllers
         [HttpPost]
         public RedirectToRouteResult Login(User user)
         {
-            userRepository.Insert(user);
-            userRepository.Save();
+            var result = userRepository.GetUserByUsername(user.Username);
+            if (result == null)
+            {
+                userRepository.Insert(user);
+                userRepository.Save();
+            }
             return RedirectToAction("Index");
         }
     }

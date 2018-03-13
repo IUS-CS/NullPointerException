@@ -11,5 +11,6 @@ namespace Chronos.Abstract
         IEnumerable<User> Users { get; }
         void Insert(User user);
         void Save();
+        User GetUserByUsername(string username);
     }
 }

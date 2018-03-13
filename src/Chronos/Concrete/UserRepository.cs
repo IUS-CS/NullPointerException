@@ -25,5 +25,12 @@ namespace Chronos.Concrete
         {
             context.SaveChanges();
         }
+
+        public User GetUserByUsername(string username)
+        {
+            return context.Users
+                .Where(x => x.Username == username)
+                .FirstOrDefault();
+        }
     }
 }
