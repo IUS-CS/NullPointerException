@@ -1,13 +1,13 @@
-﻿@model Chronos.Models.GroupContentModel
+﻿@model Chronos.Models.TodoList
 
 <div id="todo" class="tab-pane fade in">
     <h2>To Do List</h2>
     <div class="row">
-        @Html.TextBoxFor(m => m.TodoList.Items, new { placeholder = "Add items here!", Value = ""})
+        @Html.TextBoxFor(m => m.Items, new { placeholder = "Add items here!", Value = ""})
         <button id="add_item" class="btn btn-success"><span class="glyphicon-plus"></span></button>
     </div>
     <ul>
-        @foreach (var item in Model.TodoList.Items)
+        @foreach (var item in Model.Items)
         {
             <li>@item</li>
         }

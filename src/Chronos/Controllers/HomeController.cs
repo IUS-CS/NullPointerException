@@ -12,24 +12,37 @@ namespace Chronos.Controllers
         // GET: Home
         public ActionResult Index()
         {
-
+            /*
             TodoList list = new TodoList {
                 Items = new List<string>()
             };
             list.Items.Add("Do this");
             list.Items.Add("Do that");
            
-            Calendar userCalendar = new Calendar();
-            userCalendar.StartTime = DateTime.Today;
-            userCalendar.EndTime = DateTime.Today.AddDays(7);
+            //Calendar userCalendar = new Calendar();
+            //userCalendar.StartTime = DateTime.Today;
+            //userCalendar.EndTime = DateTime.Today.AddDays(7);
 
             GroupContentModel groupContent = new GroupContentModel();
             groupContent.TodoList = list;
-            groupContent.Calendar = userCalendar;
-            return View(groupContent);
-        }
-        public ViewResult Login() {
+            //groupcontent.calendar = usercalendar;
+            return View(groupContent);*/
             return View();
         }
+        public ActionResult Todo ()
+        {
+            TodoList list = new TodoList
+            {
+                Items = new List<string>()
+            };
+            list.Items.Add("Do this");
+            list.Items.Add("Do that");
+
+            return View(list);
+        }
+        /*
+        public ViewResult Login() {
+            return View();
+        }*/
     }
 }
