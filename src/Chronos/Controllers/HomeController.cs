@@ -4,13 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Chronos.Abstract;
+using Chronos.Entities;
 
 namespace Chronos.Controllers
 {
     public class HomeController : Controller
     {
+        private IUserRepository userRepository;
+
+
+        public HomeController(IUserRepository userRepositoryParam)
+        {
+            this.userRepository = userRepositoryParam;
+        }
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(User user)
         {
             /*
             TodoList list = new TodoList {
@@ -40,9 +49,20 @@ namespace Chronos.Controllers
 
             return View(list);
         }
-        /*
-        public ViewResult Login() {
+        [HttpGet]
+        public ActionResult Login() {
             return View();
-        }*/
+        }
+        [HttpPost]
+        public RedirectToRouteResult Login(User user)
+        {
+            var result = userRepository.GetUserByUsername(user.Username);
+            if (result == null)
+            {
+                userRepository.Insert(user);
+                userRepository.Save();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

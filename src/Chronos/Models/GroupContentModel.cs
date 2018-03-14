@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Chronos.Entities;
 
 namespace Chronos.Models
 {
@@ -9,5 +10,6 @@ namespace Chronos.Models
     {
         //public TodoList TodoList { get; set; }
         //public Calendar Calendar { get; set; }
+        public IEnumerable<User> Members { get; set; }
     }
 }
