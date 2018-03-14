@@ -18,11 +18,13 @@ namespace Chronos.Controllers
         {
             this.userRepository = userRepositoryParam;
         }
+        public HomeController () { }
         // GET: Home
-        public ActionResult Index(User user)
-        {
+
+        //public ActionResult Index(User user)
+        //{
       
-            var members = this.userRepository.Users;
+            //var members = this.userRepository.Users;
             /*
             TodoList list = new TodoList {
                 Items = new List<string>()
@@ -38,6 +40,10 @@ namespace Chronos.Controllers
             groupContent.TodoList = list;
             //groupcontent.calendar = usercalendar;
             return View(groupContent);*/
+            //return View();
+        //}
+        public ActionResult Index ()
+        {
             return View();
         }
         public ActionResult Todo ()
