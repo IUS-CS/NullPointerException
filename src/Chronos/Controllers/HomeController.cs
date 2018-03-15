@@ -18,32 +18,51 @@ namespace Chronos.Controllers
         {
             this.userRepository = userRepositoryParam;
         }
+        public HomeController () { }
         // GET: Home
-        public ActionResult Index(User user)
-        {
-      
-            var members = this.userRepository.Users;
 
+        //public ActionResult Index(User user)
+        //{
+      
+            //var members = this.userRepository.Users;
+            /*
             TodoList list = new TodoList {
                 Items = new List<string>()
             };
             list.Items.Add("Do this");
             list.Items.Add("Do that");
            
-            Calendar userCalendar = new Calendar();
-            userCalendar.StartTime = DateTime.Today;
-            userCalendar.EndTime = DateTime.Today.AddDays(7);
+            //Calendar userCalendar = new Calendar();
+            //userCalendar.StartTime = DateTime.Today;
+            //userCalendar.EndTime = DateTime.Today.AddDays(7);
 
             GroupContentModel groupContent = new GroupContentModel();
             groupContent.TodoList = list;
-            groupContent.Calendar = userCalendar;
-            groupContent.Members = members;
-            return View(groupContent);
+            //groupcontent.calendar = usercalendar;
+            return View(groupContent);*/
+            //return View();
+        //}
+        public ActionResult Index ()
+        {
+            return View();
         }
+        public ActionResult Todo ()
+        {
+            TodoList list = new TodoList
+            {
+                Items = new List<string>()
+            };
+            list.Items.Add("Do this");
+            list.Items.Add("Do that");
+
+            return View(list);
+        }
+        /*
         [HttpGet]
         public ActionResult Login() {
             return View();
         }
+        */
         [HttpPost]
         public RedirectToRouteResult Login(User user)
         {
