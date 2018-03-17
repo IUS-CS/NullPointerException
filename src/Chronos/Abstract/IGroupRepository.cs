@@ -11,6 +11,9 @@ namespace Chronos.Abstract
     public interface IGroupRepository
     {
         GroupContentModel GetGroupById(int id);
+        int GetGroupIdByGroupName(string name);
         Group GetFirstUserGroupById(int id);
+        int CreateGroup(string name, int userId);
+        void Save();
     }
 }

@@ -1,0 +1,14 @@
+﻿@model Chronos.Entities.Group
+
+@using (Html.BeginForm("CreateGroup", "Group"))
+{
+    @Html.ValidationSummary()
+    <div class="row">
+        <div class="form-group">
+            <label>Create Group:</label>
+            @Html.TextBoxFor(m => m.GroupName, new { placeholder = "Create new group", Value = "" })
+        </div>
+        <input type="submit" value="+" class="btn btn-success" />
+    </div>
+}
+

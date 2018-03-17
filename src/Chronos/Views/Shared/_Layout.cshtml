@@ -27,6 +27,10 @@
     </div>
 
     <div class="container body-content">
+        @if (ViewBag.Title != "Login")
+        {
+            @Html.Partial("CreateGroup", new Chronos.Entities.Group())
+        }
         @RenderBody()
         <hr />
         <footer>

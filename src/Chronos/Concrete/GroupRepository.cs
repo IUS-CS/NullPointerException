@@ -47,5 +47,25 @@ namespace Chronos.Concrete
                 .Select(x => x.Group)
                 .FirstOrDefault();
         }
+
+        public int CreateGroup(string name, int userId)
+        {
+            context.Groups.Add(new Group { GroupName = name, Creator = userId});
+            Save();
+            return GetGroupIdByGroupName(name);
+        }
+
+        public int GetGroupIdByGroupName(string name)
+        {
+            return context.Groups
+                .Where(x => x.GroupName == name)
+                .Select(x => x.Id)
+                .FirstOrDefault();
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
     }
 }

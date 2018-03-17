@@ -183,6 +183,7 @@
     <Compile Include="Concrete\GroupRepository.cs" />
     <Compile Include="Concrete\MemberItemsRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
+    <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Entities\Group.cs" />
     <Compile Include="Entities\MemberItem.cs" />
@@ -208,6 +209,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\Login.cshtml" />
+    <Content Include="Views\Shared\CreateGroup.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -217,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Group\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
