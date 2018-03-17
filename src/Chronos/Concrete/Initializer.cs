@@ -6,7 +6,7 @@ using System.Data.Entity;
 using Chronos.Entities;
 using Chronos.Concrete;
 
-namespace Chronos.Concrete;
+namespace Chronos.Concrete
 {
     public class Initializer : DropCreateDatabaseIfModelChanges<ChronosContext>
     {
