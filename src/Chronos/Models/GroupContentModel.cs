@@ -8,8 +8,19 @@ namespace Chronos.Models
 {
     public class GroupContentModel
     {
-        public TodoList TodoList { get; set; }
+        public string GroupName { get; set; }
+        public List<TodoItem> TodoList { get; set; }
         public Calendar Calendar { get; set; }
         public IEnumerable<User> Members { get; set; }
+
+        public static implicit operator GroupContentModel(Group group)
+        {
+            return new GroupContentModel
+            {
+                GroupName = group.GroupName,
+                Members = new List<User>(),
+                Calendar = new Calendar()
+            };
+        }
     }
 }

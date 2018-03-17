@@ -175,15 +175,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IGroupRepository.cs" />
+    <Compile Include="Abstract\IMemberItemsRepository.cs" />
     <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Concrete\ChronosContext.cs" />
     <Compile Include="Concrete\GroupRepository.cs" />
+    <Compile Include="Concrete\MemberItemsRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Entities\Group.cs" />
     <Compile Include="Entities\MemberItem.cs" />
+    <Compile Include="Entities\TodoItem.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

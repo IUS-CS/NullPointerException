@@ -12,30 +12,19 @@ namespace Chronos.Controllers
     public class HomeController : Controller
     {
         private IUserRepository userRepository;
-        private 
+        private IGroupRepository groupRepository;
 
-        public HomeController(IUserRepository userRepositoryParam)
+        public HomeController(IUserRepository userRepositoryParam, IGroupRepository groupRepositoryParam)
         {
-            this.userRepository = userRepositoryParam;
+            userRepository = userRepositoryParam;
+            groupRepository = groupRepositoryParam;
         }
         // GET: Home
         public ActionResult Index(User user)
         {
-      
-            var members = this.userRepository.Users;
-
-            TodoList list = new TodoList {
-                Items = new List<string>()
-            };
-            list.Items.Add("Do this");
-            list.Items.Add("Do that");
-           
-            Calendar userCalendar = new Calendar();
-            GroupContentModel groupContent = new GroupContentModel();
-            groupContent.TodoList = list;
-            groupContent.Calendar = userCalendar;
-            groupContent.Members = members;
-            return View(groupContent);
+            var groupId = RouteData.Values["id"];
+            var group = groupRepository.GetGroupById(Int32.Parse(groupId.ToString()));
+            return View(group);
         }
         [HttpGet]
         public ActionResult Login() {
@@ -51,7 +40,8 @@ namespace Chronos.Controllers
                 userRepository.Save();
             }
             result = userRepository.GetUserByUsername(result.Username);
-            return RedirectToAction("Index");
+            var group = groupRepository.GetFirstUserGroupById(result.Id);
+            return RedirectToAction("Index", new { id = group.Id});
         }
     }
 }
