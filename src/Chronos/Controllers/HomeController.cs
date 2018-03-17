@@ -12,7 +12,7 @@ namespace Chronos.Controllers
     public class HomeController : Controller
     {
         private IUserRepository userRepository;
-
+        private 
 
         public HomeController(IUserRepository userRepositoryParam)
         {
@@ -50,6 +50,7 @@ namespace Chronos.Controllers
                 userRepository.Insert(user);
                 userRepository.Save();
             }
+            result = userRepository.GetUserByUsername(result.Username);
             return RedirectToAction("Index");
         }
     }

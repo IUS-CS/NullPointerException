@@ -183,6 +183,7 @@
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Entities\Group.cs" />
+    <Compile Include="Entities\MemberItem.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
