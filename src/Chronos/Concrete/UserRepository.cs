@@ -32,5 +32,20 @@ namespace Chronos.Concrete
                 .Where(x => x.Username == username)
                 .FirstOrDefault();
         }
+
+        public List<Group> GetUsersGroupsById(int id)
+        {
+            return context.Users
+                .Join(context.MemberItems,
+                x => x.Id,
+                y => y.UserId,
+                (x, y) => new { MemberItem = y })
+                .Join(context.Groups,
+                x => x.MemberItem.GroupId,
+                y => y.Id,
+                (x, y) => new { Group = y })
+                .Select(x => x.Group)
+                .ToList();
+        }
     }
 }

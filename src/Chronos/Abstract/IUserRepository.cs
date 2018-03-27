@@ -12,5 +12,6 @@ namespace Chronos.Abstract
         void Insert(User user);
         void Save();
         User GetUserByUsername(string username);
+        List<Group> GetUsersGroupsById(int id);
     }
 }

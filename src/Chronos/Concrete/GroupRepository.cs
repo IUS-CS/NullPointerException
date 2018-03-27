@@ -15,6 +15,7 @@ namespace Chronos.Concrete
         public GroupContentModel GetGroupById(int id)
         {
             var todoItems = GetTodoItemsByGroupId(id);
+            var members = GetMembersByGroupId(id);
             var group = context.Groups
                 .Where(x => x.Id == id)
                 .Select(x => new { Id = x.Id, GroupName = x.GroupName, Creator = x.Creator })
@@ -25,13 +26,24 @@ namespace Chronos.Concrete
                 GroupName = group.GroupName,
                 TodoList = todoItems,
                 Calendar = new Calendar(),
-                Members = new List<User>()
+                Members = members
             };
         }
         private List<TodoItem> GetTodoItemsByGroupId(int id)
         {
             return context.TodoItems
                 .Where(x => x.GroupId == id)
+                .ToList();
+        }
+        private List<User> GetMembersByGroupId(int id)
+        {
+            return context.MemberItems
+                .Where(x => x.GroupId == id)
+                .Join(context.Users,
+                x => x.UserId,
+                y => y.Id,
+                (x, y) => new { User = y })
+                .Select(x => x.User)
                 .ToList();
         }
         public Group GetFirstUserGroupById(int id)
@@ -51,8 +63,10 @@ namespace Chronos.Concrete
         public int CreateGroup(string name, int userId)
         {
             context.Groups.Add(new Group { GroupName = name, Creator = userId});
+            var groupId = GetGroupIdByGroupName(name);
+            context.MemberItems.Add(new MemberItem { UserId = userId, GroupId = groupId });
             Save();
-            return GetGroupIdByGroupName(name);
+            return groupId;
         }
 
         public int GetGroupIdByGroupName(string name)

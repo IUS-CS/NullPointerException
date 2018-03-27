@@ -25,5 +25,11 @@ namespace Chronos.Controllers
             return RedirectToAction("Index", new RouteValueDictionary(
                 new { controller = "Home", action = "Index", Id = newGroupId }));
         }
+
+        public RedirectToRouteResult SwitchGroup(Group group)
+        {
+            return RedirectToAction("Index", new RouteValueDictionary(
+                new { controller = "Home", action = "Index", Id = group.Id }));
+        }
     }
 }
