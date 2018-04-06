@@ -5,10 +5,10 @@ namespace Chronos.Concrete
 {
     public class ChronosContext : DbContext
     {
-        public DbSet<User> Users { get; set; }
-        public DbSet<Group> Groups { get; set; }
-        public DbSet<MemberItem> MemberItems { get; set; }
-        public DbSet<TodoItem> TodoItems { get; set; }
+        public  virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<MemberItem> MemberItems { get; set; }
+        public virtual DbSet<TodoItem> TodoItems { get; set; }
 
         /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

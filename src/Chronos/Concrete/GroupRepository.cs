@@ -12,6 +12,11 @@ namespace Chronos.Concrete
     {
         private ChronosContext context = new ChronosContext();
 
+        public GroupRepository(ChronosContext context)
+        {
+            this.context = context;
+        }
+
         public GroupContentModel GetGroupById(int id)
         {
             var todoItems = GetTodoItemsByGroupId(id);
