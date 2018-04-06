@@ -11,5 +11,6 @@ namespace Chronos.Concrete
             Database.SetInitializer(new Initializer());
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<TodoItem> Items { get; set; }
     }
 }

@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Chronos.Entities;
 
 namespace Chronos.Models
 {
     public class TodoList
     {
-        public List<string> Items {get; set;}
+        public List<TodoItem> Items {get; set;}
 
-        public string addItem(string item)
+        public string AddItem { get; set; }
+
+        public TodoItem addItem(TodoItem item)
         {
             Items.Add(item);
             return item;
