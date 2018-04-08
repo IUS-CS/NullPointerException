@@ -13,5 +13,6 @@ namespace Chronos.Abstract
         void Save();
         User GetUserByUsername(string username);
         List<Group> GetUsersGroupsById(int id);
+        List<User> SearchUser(string username);
     }
 }

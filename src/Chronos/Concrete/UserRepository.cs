@@ -47,5 +47,12 @@ namespace Chronos.Concrete
                 .Select(x => x.Group)
                 .ToList();
         }
+
+        public List<User> SearchUser(string username)
+        {
+            return context.Users
+                .Where(x => x.Username.Contains(username))
+                .ToList();
+        }
     }
 }

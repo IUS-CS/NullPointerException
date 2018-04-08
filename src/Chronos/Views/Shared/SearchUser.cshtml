@@ -1,0 +1,21 @@
+﻿@model System.Collections.Generic.List<Chronos.Entities.User>
+
+<div class="col-xs-12">
+    <table class="table table-striped ">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Send Invite</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td><button class="btn btn-primary"><span class="glyphicon glyphicon-envelope"></span></button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

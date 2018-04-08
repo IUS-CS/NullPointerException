@@ -167,6 +167,8 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\Home.cshtml" />
@@ -186,6 +188,7 @@
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Entities\Group.cs" />
     <Compile Include="Entities\MemberItem.cs" />
     <Compile Include="Entities\TodoItem.cs" />
@@ -212,6 +215,7 @@
     <Content Include="Views\Shared\Login.cshtml" />
     <Content Include="Views\Shared\CreateGroup.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
+    <Content Include="Views\Shared\SearchUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
