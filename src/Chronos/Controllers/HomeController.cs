@@ -19,7 +19,7 @@ namespace Chronos.Controllers
             this.userRepository = userRepositoryParam;
             this.todoRepository = todoRepositoryParam;
         }
-        // GET: Home
+        
         public ActionResult Index(User user)
         {
 
