@@ -114,6 +114,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryTests\FakeDbSet.cs" />
     <Compile Include="RepositoryTests\GroupRepositoryTests.cs" />
+    <Compile Include="RepositoryTests\UserRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
