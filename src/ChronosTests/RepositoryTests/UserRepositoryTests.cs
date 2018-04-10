@@ -21,33 +21,31 @@ namespace ChronosTests.RepositoryTests
             mContext = mContextParam;
         }
 
-        public ChronosContext context = new ChronosContext();
-
         public IEnumerable<User> Users
         {
-            get { return context.Users; }
+            get { return mContext.Users; }
         }
 
         public void Insert(User user)
         {
-            context.Users.Add(user);
+            mContext.Users.Add(user);
         }
 
         public User GetUserByUsername(string username)
         {
-            return context.Users
+            return mContext.Users
                 .Where(x => x.Username == username)
                 .FirstOrDefault();
         }
 
         public List<Group> GetUsersGroupsById(int id)
         {
-            return context.Users
-                .Join(context.MemberItems,
+            return mContext.Users
+                .Join(mContext.MemberItems,
                 x => x.Id,
                 y => y.UserId,
                 (x, y) => new { MemberItem = y })
-                .Join(context.Groups,
+                .Join(mContext.Groups,
                 x => x.MemberItem.GroupId,
                 y => y.Id,
                 (x, y) => new { Group = y })
@@ -57,9 +55,14 @@ namespace ChronosTests.RepositoryTests
 
         public List<User> SearchUser(string username)
         {
-            return context.Users
+            return mContext.Users
                 .Where(x => x.Username.Contains(username))
                 .ToList();
+        }
+
+        public void Remove()
+        {
+            mContext.Users.Remove(new User { Id = 2, Username = "TestUser2" });
         }
 
         public void Save()
@@ -83,7 +86,76 @@ namespace ChronosTests.RepositoryTests
         public void InsertAddsUser()
         {
             //Arrange
-            var user = new User();
+            var user = new User()
+            {
+                Id = 2,
+                Username = "TestUser2"
+            };
+
+            //Act
+            userRepo.Insert(user);
+
+            //Assert
+            Assert.IsTrue(userRepo.Users.Count() == 2);
+
+            //Cleanup
+            userRepo.Remove();
+        }
+
+        [TestMethod]
+        public void GetUserByUsernameGetsCorrectUser()
+        {
+            //Arrange
+            var targetUsername = "TestUser";
+
+            //Act
+            var resultUser = userRepo.GetUserByUsername(targetUsername);
+
+            //Assert
+            Assert.AreEqual(resultUser.Username, targetUsername);
+        }
+
+        [TestMethod]
+        public void GetUsersGroupsByIdReturnsCorrectGroups()
+        {
+            //Arrange
+            var targetId = 1;
+
+            //Act
+            var groups = userRepo.GetUsersGroupsById(targetId);
+
+            //Assert
+            Assert.AreEqual(groups[0].GroupName, "TestGroup");
+        }
+
+        [TestMethod]
+        public void SearchuserReturnsCorrectUser()
+        {
+            //Arrange
+            var searchString = "Test";
+
+            //Act
+            var user = userRepo.SearchUser(searchString);
+
+            //Assert
+            Assert.AreEqual(user[0].Username, "TestUser");
+        }
+
+        [TestMethod]
+        public void SearchuserReturnsCorrectUsers()
+        {
+            //Arrange
+            userRepo.Insert(new User { Id = 2, Username = "TestUser2" });
+            var searchString = "Test";
+
+            //Act
+            var users = userRepo.SearchUser(searchString);
+
+            //Assert
+            foreach(var user in users)
+            {
+                Assert.IsTrue(userRepo.Users.Contains(user));
+            }
         }
 
     }
