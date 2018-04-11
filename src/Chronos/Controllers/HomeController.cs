@@ -12,29 +12,24 @@ namespace Chronos.Controllers
     public class HomeController : Controller
     {
         private IUserRepository userRepository;
-        private ITodoRepository todoRepository;
 
-        public HomeController(IUserRepository userRepositoryParam, ITodoRepository todoRepositoryParam)
+
+        public HomeController(IUserRepository userRepositoryParam)
         {
             this.userRepository = userRepositoryParam;
-            this.todoRepository = todoRepositoryParam;
         }
         // GET: Home
         public ActionResult Index(User user)
         {
-
-            ViewBag.User = user;
+      
             var members = this.userRepository.Users;
 
-            var todoItems = this.todoRepository.GetItemByGroupID(0);
             TodoList list = new TodoList {
-                Items = new List<TodoItem>()
+                Items = new List<string>()
             };
-            for (var i = 0; i < todoItems.Count; i++)
-            {
-                list.Items.Add(todoItems[i]);
-            }
-
+            list.Items.Add("Do this");
+            list.Items.Add("Do that");
+           
             Calendar userCalendar = new Calendar();
             userCalendar.StartTime = DateTime.Today;
             userCalendar.EndTime = DateTime.Today.AddDays(7);
@@ -45,21 +40,6 @@ namespace Chronos.Controllers
             groupContent.Members = members;
             return View(groupContent);
         }
-
-        [HttpPost]
-        public RedirectToRouteResult Index(GroupContentModel model)
-        {
-            var item = new TodoItem
-            {
-                Creator = ViewBag.User.UserName,
-                GroupId = 0,
-                Text = model.TodoList.AddItem,
-            };
-            todoRepository.Insert(item);
-            todoRepository.Save();
-            return RedirectToAction("Index");
-        }
-
         [HttpGet]
         public ActionResult Login() {
             return View();
