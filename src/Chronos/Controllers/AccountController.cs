@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 
 using Chronos.Models;
+using System.Linq;
 
 namespace Chronos.Controllers
 {
@@ -79,7 +80,7 @@ namespace Chronos.Controllers
             {
                 return RedirectToAction("Login");
             }
-
+            
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
@@ -91,7 +92,7 @@ namespace Chronos.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
                 case SignInStatus.Failure:
-                default:
+                default:                    
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
@@ -119,7 +120,23 @@ namespace Chronos.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                
+                string refreshToken = info.ExternalIdentity.Claims
+                        .Where(i => i.Type == "RefreshToken")
+                        .Select(i => i.Value)
+                        .SingleOrDefault();
+                string accessToken = info.ExternalIdentity.Claims
+                        .Where(i => i.Type == "AccessToken")
+                        .Select(i => i.Value)
+                        .SingleOrDefault();
+
+                var user = new ApplicationUser
+                {
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken,
+                    UserName = model.Email,
+                    Email = model.Email
+                };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

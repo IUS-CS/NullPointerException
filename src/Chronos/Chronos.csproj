@@ -236,6 +236,16 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Migrations\201804090258545_InitialCreate.cs" />
+    <Compile Include="Migrations\201804090258545_InitialCreate.Designer.cs">
+      <DependentUpon>201804090258545_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804121426247_addUserAccessAndRefreshToken.cs" />
+    <Compile Include="Migrations\201804121426247_addUserAccessAndRefreshToken.Designer.cs">
+      <DependentUpon>201804121426247_addUserAccessAndRefreshToken.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Team.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -272,6 +282,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804090258545_InitialCreate.resx">
+      <DependentUpon>201804090258545_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804121426247_addUserAccessAndRefreshToken.resx">
+      <DependentUpon>201804121426247_addUserAccessAndRefreshToken.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
