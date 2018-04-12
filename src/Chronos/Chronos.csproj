@@ -184,6 +184,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Concrete\ChronosContext.cs" />
+    <Compile Include="Concrete\Initializer.cs" />
     <Compile Include="Concrete\GroupRepository.cs" />
     <Compile Include="Concrete\InviteRepository.cs" />
     <Compile Include="Concrete\MemberItemsRepository.cs" />
