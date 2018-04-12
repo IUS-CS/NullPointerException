@@ -72,6 +72,10 @@ namespace Chronos
                     {
                         
                         var userId = context.Id;
+                        if (!String.IsNullOrEmpty(context.RefreshToken))
+                        {
+                            context.Identity.AddClaim(new Claim("RefreshToken", context.RefreshToken));
+                        }
                         context.Identity.AddClaim(new Claim(MyClaimTypes.GoogleUserId, userId));
 
                         var tokenResponse = new TokenResponse()

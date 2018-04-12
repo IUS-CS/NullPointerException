@@ -46,7 +46,7 @@ namespace Chronos.Controllers
         }
         // GET: /Calendar/UpcomingEvents
         public async Task<ActionResult> TimesBusy ()
-        {
+        {         
             var model = new CalendarModel();
 
             var credential = await GetCredentialForApiAsync();
@@ -58,8 +58,8 @@ namespace Chronos.Controllers
             // Define parameters of request.
             FreeBusyRequest requestBody = new FreeBusyRequest
             {
-                TimeMin = model.startTime,
-                TimeMax = model.endTime,
+                TimeMin = model.StartTime,
+                TimeMax = model.EndTime,
                 Items = new List<FreeBusyRequestItem> {
                     new FreeBusyRequestItem { Id = "primary" } //only get the "primary" calendar
                 }
@@ -77,7 +77,7 @@ namespace Chronos.Controllers
                 if (primaryCalendar.Errors == null)
                 {
 
-                    DateTime last = model.startTime.AddDays(-1);
+                    DateTime last = model.StartTime.AddDays(-1);
 
                     foreach (TimePeriod time in primaryCalendar.Busy)
                     {

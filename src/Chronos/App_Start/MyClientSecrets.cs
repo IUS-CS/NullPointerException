@@ -11,7 +11,7 @@ namespace Chronos
     /// </summary>
     internal static class MyClientSecrets
     {
-        public const string ClientId = "1017515073971-tgtrn4df2e7e1seqdtvflls70uj8m2hf.apps.googleusercontent.com";
-        public const string ClientSecret = "ODT35COEPv2zRYlPMEDCSMXL";
+        public const string ClientId = "1017515073971-71qiqv0pb05o8jgfgf71cc6nocvbtui6.apps.googleusercontent.com";
+        public const string ClientSecret = "ZwoEeog1MVHrxkfuG3DyiiXg";
     }
 }

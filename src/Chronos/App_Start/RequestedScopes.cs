@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 
 using Google.Apis.Calendar.v3;
+using Google.Apis.Plus.v1;
 
 namespace Chronos
 {
@@ -14,8 +15,9 @@ namespace Chronos
             get
             {
                 return new[] {
-                    "openid",
-                    "email",
+                    PlusService.Scope.PlusLogin,
+                    PlusService.Scope.UserinfoEmail,
+                    PlusService.Scope.UserinfoProfile,
                     CalendarService.Scope.CalendarReadonly,
                 };
             }

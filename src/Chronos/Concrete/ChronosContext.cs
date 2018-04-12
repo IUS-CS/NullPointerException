@@ -1,10 +1,11 @@
 ﻿using Chronos.Entities;
-using Chronos.Concrete;
+using Chronos.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
 namespace Chronos.Concrete
 {
-    public class ChronosContext : DbContext
+    public class ChronosContext : IdentityDbContext<ApplicationUser>
     {
         public ChronosContext() : base("ChronosContext")
         {
