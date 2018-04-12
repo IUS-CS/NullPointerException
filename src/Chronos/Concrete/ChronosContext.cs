@@ -10,7 +10,6 @@ namespace Chronos.Concrete
         {
             Database.SetInitializer(new Initializer());
         }
-        public DbSet<User> Users { get; set; }
         public  virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<MemberItem> MemberItems { get; set; }
