@@ -41,7 +41,7 @@ namespace Chronos.Controllers
                 userRepository.Insert(user);
                 userRepository.Save();
             }
-            result = userRepository.GetUserByUsername(result.Username);
+            result = userRepository.GetUserByUsername(user.Username);
             var group = groupRepository.GetFirstUserGroupById(result.Id);
             return RedirectToAction("Index", new { id = group.Id});
         }
