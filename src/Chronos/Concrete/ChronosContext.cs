@@ -9,6 +9,7 @@ namespace Chronos.Concrete
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<MemberItem> MemberItems { get; set; }
         public virtual DbSet<TodoItem> TodoItems { get; set; }
+        public virtual DbSet<InviteItem> InviteItems { get; set; }
 
         /*protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

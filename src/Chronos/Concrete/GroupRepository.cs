@@ -28,6 +28,7 @@ namespace Chronos.Concrete
 
             return new GroupContentModel
             {
+                Id = id,
                 GroupName = group.GroupName,
                 TodoList = todoItems,
                 Calendar = new Calendar(),
@@ -68,6 +69,7 @@ namespace Chronos.Concrete
         public int CreateGroup(string name, int userId)
         {
             context.Groups.Add(new Group { GroupName = name, Creator = userId});
+            Save();
             var groupId = GetGroupIdByGroupName(name);
             context.MemberItems.Add(new MemberItem { UserId = userId, GroupId = groupId });
             Save();

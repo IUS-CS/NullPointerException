@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Chronos.Abstract;
+using Chronos.Models;
 
 namespace Chronos.Controllers
 {
@@ -16,10 +17,16 @@ namespace Chronos.Controllers
             userRepository = userRepositoryParam;
         }
         
-        public ActionResult SearchUser(string username)
+        public ActionResult SearchUser(string username, int groupId)
         {
             var matches = userRepository.SearchUser(username);
-            return PartialView(matches);
+            var model = new SearchUserModel
+            {
+                Users = matches,
+                GroupId = groupId,
+                UserId = Int32.Parse(Session["CurrentUserId"].ToString())
+            };
+            return PartialView(model);
         }
     }
 }

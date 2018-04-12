@@ -8,6 +8,7 @@ namespace Chronos.Models
 {
     public class GroupContentModel
     {
+        public int Id { get; set; }
         public string GroupName { get; set; }
         public List<TodoItem> TodoList { get; set; }
         public Calendar Calendar { get; set; }

@@ -1,7 +1,7 @@
 ﻿@model Chronos.Models.GroupContentModel
 
 <div id="members" class="tab-pane fade in">
-    @using (Ajax.BeginForm("SearchUser", "User", new AjaxOptions { UpdateTargetId = "search-result", InsertionMode = InsertionMode.Replace }))
+    @using (Ajax.BeginForm("SearchUser", "User", new { groupId = Model.Id }, new AjaxOptions { UpdateTargetId = "search-result", InsertionMode = InsertionMode.Replace }))
     {
         @Html.ValidationSummary()
         <div class="row">

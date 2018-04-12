@@ -22,6 +22,7 @@ namespace Chronos.Controllers
         // GET: Home
         public ActionResult Index(User user)
         {
+            Session["CurrentUserId"] = user.Id;
             ViewBag.UserGroups = userRepository.GetUsersGroupsById(user.Id);
             var groupId = RouteData.Values["id"];
             var group = groupRepository.GetGroupById(Int32.Parse(groupId.ToString()));
