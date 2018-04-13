@@ -14,10 +14,9 @@
             <button class="btn btn-success hidden" id="getEventsBtn">Get Events</button>
         </div>
     </form>
-    <ul class="list-group" id="eventList">
-
-        @foreach (string eventInfo in Model.Calendar.GetTimesBusy()) {
-            <li class="list-group-item">@eventInfo</li>
-        }
+    <ul>
+        @*@foreach (string eventInfo in Model.Calendar.getEvents()) {
+            <li>@eventInfo</li>
+        }*@
     </ul>
 </div>

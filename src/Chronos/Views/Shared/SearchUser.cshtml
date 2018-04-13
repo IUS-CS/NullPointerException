@@ -1,0 +1,44 @@
+﻿@model Chronos.Models.SearchUserModel
+
+<div class="col-xs-12">
+    <table class="table table-striped ">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Send Invite</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td><button class="btn btn-primary invite-button" data-userid="@user.Id"><span class="glyphicon glyphicon-envelope"></span></button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $('.invite-button').click(function (event) {
+        $.post("/Invite/InviteUser/", { userId: $(this).data('userid'), groupId: @Model.GroupId, sender: @Model.UserId },
+            function (data) {
+                console.log(data);
+            });
+        $(this).prop('disabled', true);
+    });
+</script>
+
+<!--
+
+ $(".upvote").click(function (event) {
+                $.post("Vote/Vote",
+                    { 'topicOptionId': $(this).data("topic-id"), 'upVote': true },
+                    function (data) {
+                        var parsedData = JSON.parse(data)
+                        $('#total-votes' + parsedData.TopicOptionId).html('<b>' + (parsedData.TopicOption.VotesFor - parsedData.TopicOption.VotesAgainst) + '</b>')
+                        $('#undo' + parsedData.TopicOptionId).css("visibility", "visible")
+                        console.log(parsedData.TopicOption.Message)
+                    });
+            });-->
