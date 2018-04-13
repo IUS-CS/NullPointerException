@@ -7,30 +7,31 @@ using Microsoft.Owin.Security;
 
 using Chronos.Models;
 using System.Linq;
+using Chronos.Entities;
 
 namespace Chronos.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private SignInManager<ApplicationUser, string> _signInManager;
+        private UserManager<ApplicationUser> _userManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser, string> signInManager)
         {
-            UserManager = userManager;
-            SignInManager = signInManager;
+            UserManager = (ApplicationUserManager)userManager;
+            SignInManager = (ApplicationSignInManager)signInManager;
         }
 
         public ApplicationSignInManager SignInManager
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return (ApplicationSignInManager)_signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set
             {
@@ -42,7 +43,7 @@ namespace Chronos.Controllers
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return (ApplicationUserManager)_userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
@@ -86,7 +87,12 @@ namespace Chronos.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+
+                        Session["CurrentUser"] = loginInfo.Email;
+                        return RedirectToLocal(returnUrl);
+                    }
+                    
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -137,6 +143,9 @@ namespace Chronos.Controllers
                     UserName = model.Email,
                     Email = model.Email
                 };
+
+                Session["CurrentUser"] = model.Email;
+
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -144,7 +153,7 @@ namespace Chronos.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+                        return RedirectToLocal(returnUrl);                        
                     }
                 }
                 AddErrors(result);
@@ -201,6 +210,7 @@ namespace Chronos.Controllers
             get
             {
                 return HttpContext.GetOwinContext().Authentication;
+                //return DependencyResolver.Current.GetService(typeof(IAuthenticationManager)) as IAuthenticationManager;
             }
         }
 

@@ -6,56 +6,42 @@ using System.Web;
 using System.Web.Mvc;
 using Chronos.Abstract;
 using Chronos.Entities;
+using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using Microsoft.Owin.Security;
 
 namespace Chronos.Controllers
 {
     public class HomeController : Controller
     {
         private IUserRepository userRepository;
+        private IGroupRepository groupRepository;
 
-
-        public HomeController(IUserRepository userRepositoryParam)
+        public HomeController(IUserRepository userRepositoryParam, IGroupRepository groupRepositoryParam)
         {
-            this.userRepository = userRepositoryParam;
+            userRepository = userRepositoryParam;
+            groupRepository = groupRepositoryParam;
         }
-        public HomeController () { }
         // GET: Home
-
-        //public ActionResult Index(User user)
-        //{
-      
-            //var members = this.userRepository.Users;
-            /*
-            TodoList list = new TodoList {
-                Items = new List<string>()
-            };
-            list.Items.Add("Do this");
-            list.Items.Add("Do that");
-           
-            //Calendar userCalendar = new Calendar();
-            //userCalendar.StartTime = DateTime.Today;
-            //userCalendar.EndTime = DateTime.Today.AddDays(7);
-
-            GroupContentModel groupContent = new GroupContentModel();
-            groupContent.TodoList = list;
-            //groupcontent.calendar = usercalendar;
-            return View(groupContent);*/
-            //return View();
-        //}
-        public ActionResult Index ()
+        public  ActionResult Index()
         {
-            return View();
-        }
-        public ActionResult Todo ()
-        {
-            TodoList list = new TodoList
+            var task = HttpContext.GetOwinContext().Authentication.GetExternalIdentityAsync(
+                DefaultAuthenticationTypes.ApplicationCookie);
+            var userName = task.Result.GetUserName();
+            var foo = userRepository;
+
+            var user = userRepository.GetUserByUsername(userName);
+            if (user == null)
             {
-                Items = new List<string>()
-            };
-            list.Items.Add("Do this");
-            list.Items.Add("Do that");
-
-            return View(list);
+                userRepository.Insert(new User { Username = userName });
+                userRepository.Save();
+                user = userRepository.GetUserByUsername(userName);
+            }
+            
+            ViewBag.UserGroups = userRepository.GetUsersGroupsById(user.Id);
+            var groupId = RouteData.Values["id"];
+            var group = groupRepository.GetGroupById(Int32.Parse(groupId.ToString()));
+            return View(group);
         }
         /*
         [HttpGet]
@@ -72,7 +58,9 @@ namespace Chronos.Controllers
                 userRepository.Insert(user);
                 userRepository.Save();
             }
-            return RedirectToAction("Index");
+            result = userRepository.GetUserByUsername(user.Username);
+            var group = groupRepository.GetFirstUserGroupById(result.Id);
+            return RedirectToAction("Index", new { id = group.Id});
         }
     }
 }

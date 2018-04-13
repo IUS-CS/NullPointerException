@@ -39,6 +39,7 @@ namespace Chronos.Controllers
 
             var identity = await HttpContext.GetOwinContext().Authentication.GetExternalIdentityAsync(
                 DefaultAuthenticationTypes.ApplicationCookie);
+            
             var userId = identity.FindFirstValue(MyClaimTypes.GoogleUserId);
 
             var token = await dataStore.GetAsync<TokenResponse>(userId);
