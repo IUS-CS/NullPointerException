@@ -30,5 +30,12 @@ namespace Chronos.Concrete
         {
             return context.Items.Where(x => x.GroupId == id).ToList();
         }
+
+        public void remove(int id)
+        {
+            System.Diagnostics.Debug.WriteLine(id);
+            context.Items.Remove(context.Items.Where(x => x.Id == id).ToArray()[0]);
+            Save();
+        }
     }
 }

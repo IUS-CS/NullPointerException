@@ -12,5 +12,6 @@ namespace Chronos.Abstract
         void Insert(TodoItem item);
         void Save();
         List<TodoItem> GetItemByGroupID(int id);
+        void remove(int id);
     }
 }

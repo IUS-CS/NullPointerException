@@ -49,14 +49,20 @@ namespace Chronos.Controllers
         [HttpPost]
         public RedirectToRouteResult Index(GroupContentModel model)
         {
-            var item = new TodoItem
-            {
-                Creator = ViewBag.User.UserName,
-                GroupId = 0,
-                Text = model.TodoList.AddItem,
-            };
+            var item = new TodoItem();
+           // item.Creator = ViewBag.User.UserName;
+            item.GroupId = 0;
+            item.Text = model.TodoList.AddItem;
+
             todoRepository.Insert(item);
             todoRepository.Save();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public RedirectToRouteResult Remove(int Id)
+        {
+            todoRepository.remove(Id);
             return RedirectToAction("Index");
         }
 

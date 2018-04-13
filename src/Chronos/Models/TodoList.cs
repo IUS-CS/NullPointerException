@@ -17,5 +17,10 @@ namespace Chronos.Models
             Items.Add(item);
             return item;
         }
+        public TodoItem reomoveItem(TodoItem item)
+        {
+            Items.Remove(item);
+            return item;
+        }
     }
 }
