@@ -43,7 +43,9 @@ namespace Chronos.Infrastructure
             });
 
             kernel.Bind<IUserRepository>().To<UserRepository>();
-            kernel.Bind<ITodoRepository>().To<TodoRepository>();
+            kernel.Bind<IGroupRepository>().To<GroupRepository>();
+            kernel.Bind<IMemberItemsRepository>().To<MemberItemsRepository>();
+            kernel.Bind<IInviteRepository>().To<InviteRepository>();
         }
     }
 }

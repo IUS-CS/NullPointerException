@@ -5,11 +5,12 @@ using System.Web;
 
 namespace Chronos.Entities
 {
-    public class TodoItem
+    public class InviteItem
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
         public int GroupId { get; set; }
-        public string Text { get; set; }
-        public Group Group { get; set; }
+        public int Sender { get; set; }
+        public bool IsActive { get; set; }
     }
 }

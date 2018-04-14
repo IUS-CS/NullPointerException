@@ -13,12 +13,12 @@ namespace Chronos.Concrete
 
         public IEnumerable<TodoItem> Items
         {
-            get { return context.Items; }
+            get { return context.TodoItems; }
         }
 
         public void Insert(TodoItem item)
         {
-            context.Items.Add(item);
+            context.TodoItems.Add(item);
         }
 
         public void Save()
@@ -28,13 +28,13 @@ namespace Chronos.Concrete
 
         public List<TodoItem> GetItemByGroupID(int id)
         {
-            return context.Items.Where(x => x.GroupId == id).ToList();
+            return context.TodoItems.Where(x => x.GroupId == id).ToList();
         }
 
         public void remove(int id)
         {
             System.Diagnostics.Debug.WriteLine(id);
-            context.Items.Remove(context.Items.Where(x => x.Id == id).ToArray()[0]);
+            context.TodoItems.Remove(context.TodoItems.Where(x => x.Id == id).ToArray()[0]);
             Save();
         }
     }

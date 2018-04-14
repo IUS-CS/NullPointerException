@@ -12,38 +12,22 @@ namespace Chronos.Controllers
     public class HomeController : Controller
     {
         private IUserRepository userRepository;
+        private IGroupRepository groupRepository;
         private ITodoRepository todoRepository;
 
-        public HomeController(IUserRepository userRepositoryParam, ITodoRepository todoRepositoryParam)
+        public HomeController(IUserRepository userRepositoryParam, IGroupRepository groupRepositoryParam)
         {
-            this.userRepository = userRepositoryParam;
-            this.todoRepository = todoRepositoryParam;
+            userRepository = userRepositoryParam;
+            groupRepository = groupRepositoryParam;
         }
         // GET: Home
         public ActionResult Index(User user)
         {
-
-            ViewBag.User = user;
-            var members = this.userRepository.Users;
-
-            var todoItems = this.todoRepository.GetItemByGroupID(0);
-            TodoList list = new TodoList {
-                Items = new List<TodoItem>()
-            };
-            for (var i = 0; i < todoItems.Count; i++)
-            {
-                list.Items.Add(todoItems[i]);
-            }
-
-            Calendar userCalendar = new Calendar();
-            userCalendar.StartTime = DateTime.Today;
-            userCalendar.EndTime = DateTime.Today.AddDays(7);
-
-            GroupContentModel groupContent = new GroupContentModel();
-            groupContent.TodoList = list;
-            groupContent.Calendar = userCalendar;
-            groupContent.Members = members;
-            return View(groupContent);
+            Session["CurrentUserId"] = user.Id;
+            ViewBag.UserGroups = userRepository.GetUsersGroupsById(user.Id);
+            var groupId = RouteData.Values["id"];
+            var group = groupRepository.GetGroupById(Int32.Parse(groupId.ToString()));
+            return View(group);
         }
 
         [HttpPost]
@@ -79,7 +63,9 @@ namespace Chronos.Controllers
                 userRepository.Insert(user);
                 userRepository.Save();
             }
-            return RedirectToAction("Index");
+            result = userRepository.GetUserByUsername(user.Username);
+            var group = groupRepository.GetFirstUserGroupById(result.Id);
+            return RedirectToAction("Index", new { id = group.Id});
         }
     }
 }

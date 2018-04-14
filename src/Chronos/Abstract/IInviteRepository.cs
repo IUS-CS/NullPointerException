@@ -7,11 +7,10 @@ using Chronos.Entities;
 
 namespace Chronos.Abstract
 {
-    public interface ITodoRepository
+    public interface IInviteRepository
     {
-        void Insert(TodoItem item);
+        IEnumerable<InviteItem> InviteItems { get; }
+        void Insert(InviteItem invite);
         void Save();
-        List<TodoItem> GetItemByGroupID(int id);
-        void remove(int id);
     }
 }
