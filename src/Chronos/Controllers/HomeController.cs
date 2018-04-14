@@ -9,6 +9,7 @@ using Chronos.Entities;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security;
+using Chronos.Concrete;
 
 namespace Chronos.Controllers
 {
@@ -31,15 +32,18 @@ namespace Chronos.Controllers
             var foo = userRepository;
 
             var user = userRepository.GetUserByUsername(userName);
+            Session["CurrentUser"] = user;
+            Session["CurrentUserId"] = user.Id;
             if (user == null)
             {
                 userRepository.Insert(new User { Username = userName });
                 userRepository.Save();
                 user = userRepository.GetUserByUsername(userName);
             }
-            
-            ViewBag.UserGroups = userRepository.GetUsersGroupsById(user.Id);
-            var groupId = RouteData.Values["id"];
+
+            var groups = userRepository.GetUsersGroupsById(user.Id);
+            Session["UserGroups"] = groups;
+            var groupId = groups[0].Id;
             var group = groupRepository.GetGroupById(Int32.Parse(groupId.ToString()));
             return View(group);
         }

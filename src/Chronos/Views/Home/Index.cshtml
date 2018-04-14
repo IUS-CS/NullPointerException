@@ -1,8 +1,9 @@
-﻿
+﻿@model Chronos.Models.GroupContentModel
+
 @{
     ViewBag.Title = "Index";
 }
-@*
+
 <div class="container">
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
@@ -13,10 +14,10 @@
 </div>
 <div class="tab-content">
 
-    @Html.Partial("Home")
-    @Html.Partial("Todo")
-    @Html.Partial("Members")
-</div>*@
+    @Html.Partial("Home", Model)
+    @Html.Partial("Todo", Model)
+    @Html.Partial("Members", Model)
+</div>
 <p>
     @if (Request.IsAuthenticated)
     {

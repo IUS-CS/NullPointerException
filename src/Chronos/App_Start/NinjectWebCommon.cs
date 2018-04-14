@@ -61,24 +61,24 @@ namespace Chronos.App_Start
             System.Web.Mvc.DependencyResolver.SetResolver(new
                 Chronos.Infrastructure.NinjectDependencyResolver(kernel));
 
-            kernel.Bind<ApplicationDbContext>().ToSelf();
+            //kernel.Bind<ApplicationDbContext>().ToSelf();
 
-            kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().WithConstructorArgument("context",
-                kernel.Get<ApplicationDbContext>());
+            //kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().WithConstructorArgument("context",
+            //    kernel.Get<ApplicationDbContext>());
 
-            kernel.Bind<UserManager<ApplicationUser>>().To<ApplicationUserManager>().WithConstructorArgument("store",
-                kernel.Get<IUserStore<ApplicationUser>>());
+            //kernel.Bind<UserManager<ApplicationUser>>().To<ApplicationUserManager>().WithConstructorArgument("store",
+            //    kernel.Get<IUserStore<ApplicationUser>>());
 
-            kernel.Bind<IAuthenticationManager>().ToMethod(context =>
-            {
-                var contextBase = new HttpContextWrapper(HttpContext.Current);
-                return contextBase.GetOwinContext().Authentication;
-            });
+            //kernel.Bind<IAuthenticationManager>().ToMethod(context =>
+            //{
+            //    var contextBase = new HttpContextWrapper(HttpContext.Current);
+            //    return contextBase.GetOwinContext().Authentication;
+            //});
 
-            kernel.Bind<SignInManager<ApplicationUser, string>>().To<ApplicationSignInManager>()
-                .WithConstructorArgument("userManager", kernel.Get<UserManager<ApplicationUser>>())
-                .WithConstructorArgument("authenticationManager", 
-                kernel.Get<IAuthenticationManager>());
+            //kernel.Bind<SignInManager<ApplicationUser, string>>().To<ApplicationSignInManager>()
+            //    .WithConstructorArgument("userManager", kernel.Get<UserManager<ApplicationUser>>())
+            //    .WithConstructorArgument("authenticationManager", 
+            //    kernel.Get<IAuthenticationManager>());
 
             
 

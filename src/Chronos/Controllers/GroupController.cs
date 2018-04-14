@@ -21,7 +21,7 @@ namespace Chronos.Controllers
         [HttpPost]
         public RedirectToRouteResult CreateGroup(Group group)
         {
-            int newGroupId = groupRepository.CreateGroup(group.GroupName, 1); //TODO: user id is hard coded, needs to come from session
+            int newGroupId = groupRepository.CreateGroup(group.GroupName, (int) Session["CurrentUserId"]); 
             return RedirectToAction("Index", new RouteValueDictionary(
                 new { controller = "Home", action = "Index", Id = newGroupId }));
         }

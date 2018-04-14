@@ -45,6 +45,7 @@ namespace Chronos.Concrete
                 y => y.Id,
                 (x, y) => new { Group = y })
                 .Select(x => x.Group)
+                .Distinct()
                 .ToList();
         }
 

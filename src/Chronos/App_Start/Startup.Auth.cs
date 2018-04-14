@@ -13,8 +13,6 @@ using Chronos.Models;
 using Google.Apis.Util.Store;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Responses;
-using Chronos.Infrastructure;
-using System.Web.Mvc;
 
 namespace Chronos
 {
@@ -27,16 +25,11 @@ namespace Chronos
         // http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
-            var appContext = DependencyResolver.Current.GetService(typeof(ApplicationDbContext)) as ApplicationDbContext;
-            var appManager = DependencyResolver.Current.GetService(typeof(UserManager<ApplicationUser>)) as UserManager<ApplicationUser>;
-            var appSigninManager = DependencyResolver.Current.GetService(typeof(SignInManager<ApplicationUser, string>)) as ApplicationSignInManager;
+
             // Configure the db context, user manager and signin manager to use a single instance per request.
-            app.CreatePerOwinContext(() => appContext);
-            app.CreatePerOwinContext(() => appManager);
-            app.CreatePerOwinContext(() => appSigninManager);
-            //app.CreatePerOwinContext(ApplicationDbContext.Create);
-            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            //app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
             // Enables the application to use a cookie to store information for the signed in user and to use a cookie
             // to temporarily store information about a user logging in with a third party login provider.
@@ -77,7 +70,7 @@ namespace Chronos
                 {
                     OnAuthenticated = async context =>
                     {
-                        
+
                         var userId = context.Id;
                         if (!String.IsNullOrEmpty(context.RefreshToken))
                         {
@@ -108,8 +101,6 @@ namespace Chronos
             }
 
             app.UseGoogleAuthentication(google);
-
-
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Chronos
     // Configure the application sign-in manager which is used in this application.
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {
-        public ApplicationSignInManager(UserManager<ApplicationUser> userManager,
+        public ApplicationSignInManager(ApplicationUserManager userManager,
             IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
         {
@@ -90,7 +90,7 @@ namespace Chronos
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options,
             IOwinContext context)
         {
-            return new ApplicationSignInManager(context.GetUserManager<UserManager<ApplicationUser>>(),
+            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(),
                 context.Authentication);
         }
     }

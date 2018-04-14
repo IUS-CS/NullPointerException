@@ -10,7 +10,7 @@
 <body>
     @if (ViewBag.Title != "Login")
     {
-        @Html.Partial("Header", (List<Chronos.Entities.Group>) ViewBag.UserGroups)
+        @Html.Partial("Header", Session["UserGroups"])
     }
 
         <div class="container body-content">
