@@ -55,5 +55,12 @@ namespace Chronos.Concrete
                 .Where(x => x.Username.Contains(username))
                 .ToList();
         }
+
+        public List<User> SearchUserInvite(string username, List<int> memberIds)
+        {
+            return context.Users
+                .Where(x => x.Username.Contains(username) && !memberIds.Contains(x.Id))
+                .ToList();
+        }
     }
 }

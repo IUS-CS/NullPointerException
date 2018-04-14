@@ -34,7 +34,7 @@ namespace ChronosTests.RepositoryTests
             {
                 GroupName = group.GroupName,
                 TodoList = todoItems,
-                Calendar = new Calendar(),
+                //Calendar = new Calendar(),
                 Members = members
             };
         }

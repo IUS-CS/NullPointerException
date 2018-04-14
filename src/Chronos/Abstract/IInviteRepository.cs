@@ -11,6 +11,7 @@ namespace Chronos.Abstract
     {
         IEnumerable<InviteItem> InviteItems { get; }
         void Insert(InviteItem invite);
+        List<InviteItem> GetUserInvitesByUserId(int id);
         void Save();
     }
 }

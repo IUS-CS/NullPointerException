@@ -43,7 +43,7 @@ namespace Chronos.Controllers
 
             var groups = userRepository.GetUsersGroupsById(user.Id);
             Session["UserGroups"] = groups;
-            var groupId = groups[0].Id;
+            var groupId = RouteData.Values["id"] ?? groups[0].Id;
             var group = groupRepository.GetGroupById(Int32.Parse(groupId.ToString()));
             return View(group);
         }

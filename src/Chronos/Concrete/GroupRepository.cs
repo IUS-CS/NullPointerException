@@ -41,7 +41,7 @@ namespace Chronos.Concrete
                 .Where(x => x.GroupId == id)
                 .ToList();
         }
-        private List<User> GetMembersByGroupId(int id)
+        public List<User> GetMembersByGroupId(int id)
         {
             return context.MemberItems
                 .Where(x => x.GroupId == id)

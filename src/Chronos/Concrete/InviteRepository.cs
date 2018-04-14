@@ -17,6 +17,14 @@ namespace Chronos.Concrete
             context.InviteItems.Add(invite);
         }
 
+        public List<InviteItem> GetUserInvitesByUserId(int id)
+        {
+            return context.InviteItems
+                .Where(x => x.UserId == id)
+                .Where(x => x.IsActive)
+                .ToList();
+        }
+
         public void Save()
         {
             context.SaveChanges();

@@ -1,0 +1,27 @@
+﻿@model Chronos.Models.ProfilePageModel
+
+@{
+    ViewBag.Title = "ProfilePage";
+}
+
+<h2>ProfilePage</h2>
+
+<div class="row">
+    <div class="col-xs-6">
+        <ul class="list-group">
+            @foreach(var group in Model.Groups)
+            {
+                <li class="list-group-item">@group.GroupName</li>
+            }
+        </ul>
+    </div>
+    <div class="col-xs-6">
+        <ul class="list-group">
+            @foreach(var invite in Model.Invites)
+            {
+                <li class="list-group-item">User @invite.Sender invites you to Group @invite.GroupId</li>
+            }
+        </ul>
+    </div>
+</div>
+
