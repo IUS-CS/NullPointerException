@@ -15,5 +15,7 @@ namespace Chronos.Abstract
         List<Group> GetUsersGroupsById(int id);
         List<User> SearchUser(string username);
         List<User> SearchUserInvite(string username, List<int> memberIds);
+        User GetUserById(int id);
+        string GetUsernameById(int id);
     }
 }

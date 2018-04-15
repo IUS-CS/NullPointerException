@@ -29,5 +29,13 @@ namespace Chronos.Concrete
         {
             context.SaveChanges();
         }
+
+        public void SetInactive(int id)
+        {
+            context.InviteItems.Find(id)
+                .IsActive = false;
+
+            Save();
+        }
     }
 }

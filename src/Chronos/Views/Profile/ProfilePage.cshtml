@@ -9,19 +9,35 @@
 <div class="row">
     <div class="col-xs-6">
         <ul class="list-group">
-            @foreach(var group in Model.Groups)
-            {
-                <li class="list-group-item">@group.GroupName</li>
-            }
+            <li class="list-group-item"><h2>Your invites</h2></li>
+            @foreach (var group in Model.Groups)
+    {
+        <li class="list-group-item">@group.GroupName</li>
+}
         </ul>
     </div>
     <div class="col-xs-6">
         <ul class="list-group">
+            <li class="list-group-item"><h2>Your invites</h2></li>
             @foreach(var invite in Model.Invites)
             {
-                <li class="list-group-item">User @invite.Sender invites you to Group @invite.GroupId</li>
+                <li  class="list-group-item clearfix"><b>@invite.Item3</b> invites you to <b>@invite.Item2</b> <span class="pull-right">
+                    <button class="btn btn-success accept" data-id="@invite.Item1.Id" data-userid="@invite.Item1.UserId" data-groupid="@invite.Item1.GroupId">Accept</button> 
+                    <button class="btn btn-danger decline" data-id="@invite.Item1.Id">Decline</button></span></li>
             }
         </ul>
     </div>
 </div>
+
+@section pagescripts {
+    <script>
+        $('.accept').click(function () {
+            $.post("/Invite/AcceptInvite/", { id: $(this).data('id'), userid: $(this).data('userid'), groupid: $(this).data('groupid') },
+                function (data) {
+                    console.log(data);
+                });
+            $(this).prop('disabled', true);
+        });
+    </script>
+}
 

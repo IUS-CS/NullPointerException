@@ -62,5 +62,20 @@ namespace Chronos.Concrete
                 .Where(x => x.Username.Contains(username) && !memberIds.Contains(x.Id))
                 .ToList();
         }
+
+        public User GetUserById(int id)
+        {
+            return context.Users
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+        }
+
+        public string GetUsernameById(int id)
+        {
+            return context.Users
+                .Where(x => x.Id == id)
+                .Select(x => x.Username)
+                .First();
+        }
     }
 }

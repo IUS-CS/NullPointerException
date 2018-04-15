@@ -11,10 +11,12 @@ namespace Chronos.Controllers
     public class InviteController : Controller
     {
         private IInviteRepository inviteRepository;
+        private IMemberItemsRepository memberItemRepository;
 
-        public InviteController(IInviteRepository inviteRepositoryParam)
+        public InviteController(IInviteRepository inviteRepositoryParam, IMemberItemsRepository memberItemRepositoryParam)
         {
             inviteRepository = inviteRepositoryParam;
+            memberItemRepository = memberItemRepositoryParam;
         }
 
         [HttpPost]
@@ -29,6 +31,24 @@ namespace Chronos.Controllers
             };
             inviteRepository.Insert(invite);
             inviteRepository.Save();
+        }
+
+        [HttpPost]
+        public void AcceptInvite(int id, int userid, int groupid)
+        {
+            var memberItem = new MemberItem
+            {
+                UserId = userid,
+                GroupId = groupid
+            };
+            memberItemRepository.Insert(memberItem);
+            inviteRepository.SetInactive(id);
+        }
+
+        [HttpPost]
+        public void DeclineInvite(int id)
+        {
+            inviteRepository.SetInactive(id);
         }
     }
 }

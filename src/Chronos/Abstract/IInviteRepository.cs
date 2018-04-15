@@ -13,5 +13,6 @@ namespace Chronos.Abstract
         void Insert(InviteItem invite);
         List<InviteItem> GetUserInvitesByUserId(int id);
         void Save();
+        void SetInactive(int id);
     }
 }

@@ -9,6 +9,6 @@ namespace Chronos.Models
     public class ProfilePageModel
     {
         public List<Group> Groups { get; set; }
-        public List<InviteItem> Invites { get; set; }
+        public List<Tuple<InviteItem, string, string>> Invites { get; set; }
     }
 }

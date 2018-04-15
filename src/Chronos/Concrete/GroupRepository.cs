@@ -88,5 +88,13 @@ namespace Chronos.Concrete
         {
             context.SaveChanges();
         }
+
+        public string GetGroupNameById(int id)
+        {
+            return context.Groups
+                .Where(x => x.Id == id)
+                .Select(x => x.GroupName)
+                .First();
+        }
     }
 }
