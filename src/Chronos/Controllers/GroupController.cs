@@ -18,6 +18,11 @@ namespace Chronos.Controllers
             groupRepository = groupRepositoryParam;
         }
         
+        /// <summary>
+        /// Creates a group
+        /// </summary>
+        /// <param name="group">the grou pname to be created</param>
+        /// <returns>a new view of the created group's page</returns>
         [HttpPost]
         public RedirectToRouteResult CreateGroup(Group group)
         {
@@ -26,6 +31,11 @@ namespace Chronos.Controllers
                 new { controller = "Home", action = "Index", Id = newGroupId }));
         }
 
+        /// <summary>
+        /// Switches the group page the user is viewing
+        /// </summary>
+        /// <param name="group">The group to be switched to</param>
+        /// <returns>a new page showing the new group</returns>
         public RedirectToRouteResult SwitchGroup(Group group)
         {
             return RedirectToAction("Index", new RouteValueDictionary(

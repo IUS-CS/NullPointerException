@@ -31,6 +31,9 @@ namespace Chronos.Infrastructure
             return kernel.GetAll(serviceType);
         }
 
+        /// <summary>
+        /// Tells the DI container which interfaces bind to certain concrete classes
+        /// </summary>
         public void AddBindings()
         {
             Mock<IUserRepository> mock = new Mock<IUserRepository>();

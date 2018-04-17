@@ -5,6 +5,9 @@ using System.Web;
 
 namespace Chronos.Models
 {
+    /// <summary>
+    /// A list of todo items for a group
+    /// </summary>
     public class TodoList
     {
         public List<string> Items {get; set;}

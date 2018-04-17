@@ -4,8 +4,14 @@ using System.Data.Entity.Infrastructure;
 
 namespace Chronos.Concrete
 {
+    /// <summary>
+    /// The database context for the application
+    /// </summary>
     public class ChronosContext : DbContext
     {
+        /// <summary>
+        /// Sets the initializer for the database
+        /// </summary>
         public ChronosContext() : base("ChronosContext")
         {
             Database.SetInitializer(new Initializer());

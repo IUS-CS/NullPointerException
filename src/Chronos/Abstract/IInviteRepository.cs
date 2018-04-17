@@ -7,6 +7,9 @@ using Chronos.Entities;
 
 namespace Chronos.Abstract
 {
+    /// <summary>
+    /// Interface injected by DI container
+    /// </summary>
     public interface IInviteRepository
     {
         IEnumerable<InviteItem> InviteItems { get; }

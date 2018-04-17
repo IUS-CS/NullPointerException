@@ -18,12 +18,22 @@ namespace Chronos.Controllers
         private IUserRepository userRepository;
         private IGroupRepository groupRepository;
 
+        /// <summary>
+        /// Constructor that gets concrete repositories from
+        /// the dependency injection container
+        /// </summary>
+        /// <param name="userRepositoryParam"></param>
+        /// <param name="groupRepositoryParam"></param>
         public HomeController(IUserRepository userRepositoryParam, IGroupRepository groupRepositoryParam)
         {
             userRepository = userRepositoryParam;
             groupRepository = groupRepositoryParam;
         }
         // GET: Home
+        /// <summary>
+        /// Displays the home page
+        /// </summary>
+        /// <returns></returns>
         public  ActionResult Index()
         {
             var task = HttpContext.GetOwinContext().Authentication.GetExternalIdentityAsync(
@@ -53,6 +63,11 @@ namespace Chronos.Controllers
             return View();
         }
         */
+        /// <summary>
+        /// Deprecated
+        /// </summary>
+        /// <param name="user">current user</param>
+        /// <returns>home page</returns>
         [HttpPost]
         public RedirectToRouteResult Login(User user)
         {

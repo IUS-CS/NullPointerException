@@ -6,6 +6,9 @@ using Chronos.Entities;
 
 namespace Chronos.Abstract
 {
+    /// <summary>
+    /// Interface injected by DI container
+    /// </summary>
     public interface IUserRepository
     {
         IEnumerable<User> Users { get; }

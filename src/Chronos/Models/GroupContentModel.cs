@@ -6,6 +6,10 @@ using Chronos.Entities;
 
 namespace Chronos.Models
 {
+    /// <summary>
+    /// Conatains the information to be displayed to the user
+    /// at a given home screen (dpenedent on the group)
+    /// </summary>
     public class GroupContentModel
     {
         public int Id { get; set; }

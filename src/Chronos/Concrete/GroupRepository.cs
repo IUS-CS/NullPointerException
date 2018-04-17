@@ -8,6 +8,9 @@ using Chronos.Models;
 
 namespace Chronos.Concrete
 {
+    /// <summary>
+    /// Concrete implementation for working with groups in the database
+    /// </summary>
     public class GroupRepository : IGroupRepository
     {
         private ChronosContext context = new ChronosContext();
@@ -17,6 +20,11 @@ namespace Chronos.Concrete
             this.context = context;
         }
 
+        /// <summary>
+        /// Gets a group by the id
+        /// </summary>
+        /// <param name="id">di of the requested group</param>
+        /// <returns>the group matching id</returns>
         public GroupContentModel GetGroupById(int id)
         {
             var todoItems = GetTodoItemsByGroupId(id);
@@ -35,12 +43,24 @@ namespace Chronos.Concrete
                 Members = members
             };
         }
+
+        /// <summary>
+        /// Gets the todo list of a group
+        /// </summary>
+        /// <param name="id">a group id</param>
+        /// <returns>The todolist of the group matching id</returns>
         private List<TodoItem> GetTodoItemsByGroupId(int id)
         {
             return context.TodoItems
                 .Where(x => x.GroupId == id)
                 .ToList();
         }
+
+        /// <summary>
+        /// Gets the members of a group
+        /// </summary>
+        /// <param name="id">a group id</param>
+        /// <returns>the users in the group matching id</returns>
         public List<User> GetMembersByGroupId(int id)
         {
             return context.MemberItems
@@ -52,6 +72,12 @@ namespace Chronos.Concrete
                 .Select(x => x.User)
                 .ToList();
         }
+        
+        /// <summary>
+        /// Get the group to display to theh user on login
+        /// </summary>
+        /// <param name="id">a user id</param>
+        /// <returns>the first group this user is a part of</returns>
         public Group GetFirstUserGroupById(int id)
         {
             return context.Groups
@@ -66,6 +92,12 @@ namespace Chronos.Concrete
                 .FirstOrDefault();
         }
 
+        /// <summary>
+        /// Creates a new group and adds the creator as a member
+        /// </summary>
+        /// <param name="name">the group name</param>
+        /// <param name="userId">the current user's id</param>
+        /// <returns>the id of the new group</returns>
         public int CreateGroup(string name, int userId)
         {
             context.Groups.Add(new Group { GroupName = name, Creator = userId});
@@ -76,6 +108,11 @@ namespace Chronos.Concrete
             return groupId;
         }
 
+        /// <summary>
+        /// Gets the id of a group
+        /// </summary>
+        /// <param name="name">the group name being searched</param>
+        /// <returns>a group id</returns>
         public int GetGroupIdByGroupName(string name)
         {
             return context.Groups
@@ -84,11 +121,19 @@ namespace Chronos.Concrete
                 .FirstOrDefault();
         }
 
+        /// <summary>
+        /// Saves changes to the database
+        /// </summary>
         public void Save()
         {
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Returns the name of a group
+        /// </summary>
+        /// <param name="id">a group id</param>
+        /// <returns>the name of the group matching id</returns>
         public string GetGroupNameById(int id)
         {
             return context.Groups

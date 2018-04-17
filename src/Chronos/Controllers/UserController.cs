@@ -20,6 +20,13 @@ namespace Chronos.Controllers
             groupRepository = groupRepositoryParam;
         }
         
+        /// <summary>
+        /// Searches for a user and returns a partial view of
+        /// potential matches
+        /// </summary>
+        /// <param name="username">The search string</param>
+        /// <param name="groupId">The group id used to filter the search results</param>
+        /// <returns></returns>
         public ActionResult SearchUser(string username, int groupId)
         {
             var members = groupRepository.GetMembersByGroupId(groupId);

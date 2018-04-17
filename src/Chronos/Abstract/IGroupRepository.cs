@@ -8,6 +8,9 @@ using Chronos.Models;
 
 namespace Chronos.Abstract
 {
+    /// <summary>
+    /// Interface injected by DI container
+    /// </summary>
     public interface IGroupRepository
     {
         GroupContentModel GetGroupById(int id);
