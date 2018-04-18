@@ -29,10 +29,8 @@ namespace Chronos.Controllers
             var task = HttpContext.GetOwinContext().Authentication.GetExternalIdentityAsync(
                 DefaultAuthenticationTypes.ApplicationCookie);
             var userName = task.Result.GetUserName();
-            var foo = userRepository;
 
             var user = userRepository.GetUserByUsername(userName);
-            
             if (user == null)
             {
                 userRepository.Insert(new User { Username = userName });
