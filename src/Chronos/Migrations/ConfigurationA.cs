@@ -1,16 +1,15 @@
-namespace Chronos.Migrations
+namespace Chronos.Models.Migrations.MigrationsA
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Chronos.Models.ApplicationDbContext>
+    internal sealed class ConfigurationA : DbMigrationsConfiguration<Chronos.Models.ApplicationDbContext>
     {
-        public Configuration()
+        public ConfigurationA()
         {
-            AutomaticMigrationsEnabled = false;
-            ContextKey = "Chronos.Models.ApplicationDbContext";
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Chronos.Models.ApplicationDbContext context)
