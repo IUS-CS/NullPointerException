@@ -8,7 +8,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    @if (ViewBag.Title != "Login")
+    @if (ViewBag.Title != "Login" && ViewBag.Title != "Register")
     {
         @Html.Partial("Header", Session["UserGroups"])
     }

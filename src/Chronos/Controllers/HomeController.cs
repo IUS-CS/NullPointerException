@@ -32,14 +32,15 @@ namespace Chronos.Controllers
             var foo = userRepository;
 
             var user = userRepository.GetUserByUsername(userName);
-            Session["CurrentUser"] = user;
-            Session["CurrentUserId"] = user.Id;
+            
             if (user == null)
             {
                 userRepository.Insert(new User { Username = userName });
                 userRepository.Save();
                 user = userRepository.GetUserByUsername(userName);
             }
+            Session["CurrentUser"] = user;
+            Session["CurrentUserId"] = user.Id;
 
             var groups = userRepository.GetUsersGroupsById(user.Id);
             Session["UserGroups"] = groups;
