@@ -164,6 +164,7 @@
     <Content Include="client_secret.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="Abstract\ITodoRepository.cs" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -188,6 +189,7 @@
     <Compile Include="Concrete\GroupRepository.cs" />
     <Compile Include="Concrete\InviteRepository.cs" />
     <Compile Include="Concrete\MemberItemsRepository.cs" />
+    <Compile Include="Concrete\TodoRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

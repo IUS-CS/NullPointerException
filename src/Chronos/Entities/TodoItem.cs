@@ -10,6 +10,6 @@ namespace Chronos.Entities
         public int Id { get; set; }
         public int GroupId { get; set; }
         public string Text { get; set; }
-        public Group Group { get; set; }
+       // public Group Group { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Chronos.Models
     {
         public int Id { get; set; }
         public string GroupName { get; set; }
-        public List<TodoItem> TodoList { get; set; }
+        public TodoList TodoList { get; set; }
         public Calendar Calendar { get; set; }
         public IEnumerable<User> Members { get; set; }
 
@@ -20,7 +20,8 @@ namespace Chronos.Models
             {
                 GroupName = group.GroupName,
                 Members = new List<User>(),
-                Calendar = new Calendar()
+                Calendar = new Calendar(),
+                TodoList = new TodoList(),
             };
         }
     }

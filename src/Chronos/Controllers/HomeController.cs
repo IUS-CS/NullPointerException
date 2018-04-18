@@ -13,6 +13,7 @@ namespace Chronos.Controllers
     {
         private IUserRepository userRepository;
         private IGroupRepository groupRepository;
+        private ITodoRepository todoRepository;
 
         public HomeController(IUserRepository userRepositoryParam, IGroupRepository groupRepositoryParam)
         {
@@ -28,6 +29,27 @@ namespace Chronos.Controllers
             var group = groupRepository.GetGroupById(Int32.Parse(groupId.ToString()));
             return View(group);
         }
+
+        [HttpPost]
+        public RedirectToRouteResult Index(GroupContentModel model)
+        {
+            var item = new TodoItem();
+            // item.Creator = ViewBag.User.UserName;
+            item.GroupId = Int32.Parse( RouteData.Values["id"].ToString());
+            item.Text = model.TodoList.AddItem;
+
+            todoRepository.Insert(item);
+            todoRepository.Save();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public RedirectToRouteResult Remove(int Id)
+        {
+            todoRepository.remove(Id);
+            return RedirectToAction("Index");
+        }
+
         [HttpGet]
         public ActionResult Login() {
             return View();

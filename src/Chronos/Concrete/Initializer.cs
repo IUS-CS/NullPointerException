@@ -27,7 +27,7 @@ namespace Chronos.Concrete
             };
             var todoItems = new List<TodoItem>
             {
-                new TodoItem { GroupId = 1, Text = "Test Todo", Group = new Group()}
+                new TodoItem { GroupId = 1, Text = "Test Todo"}
             };
             var inviteItems = new List<InviteItem>
             {

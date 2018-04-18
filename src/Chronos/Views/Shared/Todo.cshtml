@@ -2,14 +2,24 @@
 
 <div id="todo" class="tab-pane fade in">
     <h2>To Do List</h2>
-    <div class="row">
-        @Html.TextBoxFor(m => m.TodoList, new { placeholder = "Add items here!", Value = ""})
-        <button id="add_item" class="btn btn-success"><span class="glyphicon-plus"></span></button>
-    </div>
-    <ul>
-        @foreach (var item in Model.TodoList)
-        {
-            <li>@item.Text</li>
-        }
-    </ul>
+    @using (Html.BeginForm())
+    {
+
+
+        <div class="row">
+            @Html.TextBoxFor(m => m.TodoList.AddItem, new { placeholder = "Add items here!", Value = "" })
+            <input type="submit" value="+" class="btn btn-success" />
+            <!--<button id="add_item" class="btn btn-success"><span class="glyphicon-plus"></span></button>-->
+        </div>
+    }
+        <ul>
+            @foreach (var item in Model.TodoList.Items)
+            {
+
+            <li><a href="../Home/Remove?id=@item.Id">X</a> @item.Text</li>
+}
+        </ul>
 </div>
+@section pagescript{
+<script>$('.remove').click(function (event) { console.log("Is running"); Model.TodoList.reomove($(this).data("item")) });</script>
+}
