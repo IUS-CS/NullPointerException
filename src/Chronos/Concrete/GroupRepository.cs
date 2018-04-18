@@ -30,7 +30,7 @@ namespace Chronos.Concrete
             {
                 Id = id,
                 GroupName = group.GroupName,
-                TodoList = new List<TodoItem>(),
+                TodoList = new TodoList(),
                 Calendar = new Calendar(),
                 Members = members
             };

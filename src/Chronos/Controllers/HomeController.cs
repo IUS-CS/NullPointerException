@@ -34,8 +34,8 @@ namespace Chronos.Controllers
         public RedirectToRouteResult Index(GroupContentModel model)
         {
             var item = new TodoItem();
-           // item.Creator = ViewBag.User.UserName;
-            item.GroupId = 0;
+            // item.Creator = ViewBag.User.UserName;
+            item.GroupId = Int32.Parse( RouteData.Values["id"].ToString());
             item.Text = model.TodoList.AddItem;
 
             todoRepository.Insert(item);
