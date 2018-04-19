@@ -94,6 +94,11 @@ namespace ChronosTests.RepositoryTests
         {
             //Needed to satisfy interface
         }
+
+        public string GetGroupNameById(int id)
+        {
+            return "";
+        }
     }
 
     [TestClass]

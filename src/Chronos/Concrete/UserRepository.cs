@@ -63,6 +63,7 @@ namespace Chronos.Concrete
                 x => x.Id,
                 y => y.UserId,
                 (x, y) => new { MemberItem = y })
+                .Where(x => x.MemberItem.UserId == id)
                 .Join(context.Groups,
                 x => x.MemberItem.GroupId,
                 y => y.Id,

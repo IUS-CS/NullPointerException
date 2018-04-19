@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Chronos.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -320,6 +321,7 @@
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Shared\SearchUser.cshtml" />
     <Content Include="Views\Profile\ProfilePage.cshtml" />
+    <Content Include="Views\Home\NewUserPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

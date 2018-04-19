@@ -69,6 +69,21 @@ namespace ChronosTests.RepositoryTests
         {
             //Needed to satisfy interface
         }
+
+        public string GetUsernameById(int id)
+        {
+            return "";
+        }
+
+        public User GetUserById(int id)
+        {
+            return new User();
+        }
+
+        public List<User> SearchUserInvite(string username, List<int> members)
+        {
+            return new List<User>();
+        }
     }
 
     [TestClass]

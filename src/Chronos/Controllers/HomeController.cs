@@ -42,17 +42,23 @@ namespace Chronos.Controllers
             var foo = userRepository;
 
             var user = userRepository.GetUserByUsername(userName);
-            Session["CurrentUser"] = user;
-            Session["CurrentUserId"] = user.Id;
+            
             if (user == null)
             {
                 userRepository.Insert(new User { Username = userName });
                 userRepository.Save();
                 user = userRepository.GetUserByUsername(userName);
             }
+            Session["CurrentUser"] = user;
+            Session["CurrentUserId"] = user.Id;
 
             var groups = userRepository.GetUsersGroupsById(user.Id);
             Session["UserGroups"] = groups;
+            if (groups.Count() == 0)
+            {
+                return View("NewUserPage");
+            }
+            
             var groupId = RouteData.Values["id"] ?? groups[0].Id;
             var group = groupRepository.GetGroupById(Int32.Parse(groupId.ToString()));
             return View(group);
