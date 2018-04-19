@@ -39,7 +39,6 @@ namespace Chronos.Controllers
             var task = HttpContext.GetOwinContext().Authentication.GetExternalIdentityAsync(
                 DefaultAuthenticationTypes.ApplicationCookie);
             var userName = task.Result.GetUserName();
-            var foo = userRepository;
 
             var user = userRepository.GetUserByUsername(userName);
             
@@ -62,30 +61,6 @@ namespace Chronos.Controllers
             var groupId = RouteData.Values["id"] ?? groups[0].Id;
             var group = groupRepository.GetGroupById(Int32.Parse(groupId.ToString()));
             return View(group);
-        }
-        /*
-        [HttpGet]
-        public ActionResult Login() {
-            return View();
-        }
-        */
-        /// <summary>
-        /// Deprecated
-        /// </summary>
-        /// <param name="user">current user</param>
-        /// <returns>home page</returns>
-        [HttpPost]
-        public RedirectToRouteResult Login(User user)
-        {
-            var result = userRepository.GetUserByUsername(user.Username);
-            if (result == null)
-            {
-                userRepository.Insert(user);
-                userRepository.Save();
-            }
-            result = userRepository.GetUserByUsername(user.Username);
-            var group = groupRepository.GetFirstUserGroupById(result.Id);
-            return RedirectToAction("Index", new { id = group.Id});
         }
     }
 }

@@ -16,15 +16,23 @@ using Google.Apis.Calendar.v3;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using Google.Apis.Calendar.v3.Data;
+using Chronos.Abstract;
 
 namespace Chronos.Controllers
 {
+    
+
     [Authorize]
     public class CalendarController : Controller
     {
-        private readonly IDataStore dataStore = new FileDataStore(GoogleWebAuthorizationBroker.Folder);
+        private IGroupRepository groupRepository;
 
-        private async Task<UserCredential> GetCredentialForApiAsync()
+        public CalendarController (IGroupRepository groupRepositoryParam)
+        {
+            groupRepository = groupRepositoryParam;
+        }
+
+        private UserCredential GetCredentialForApi(ApplicationUser user)
         {
             var initializer = new GoogleAuthorizationCodeFlow.Initializer
             {
@@ -37,20 +45,27 @@ namespace Chronos.Controllers
             };
             var flow = new GoogleAuthorizationCodeFlow(initializer);
 
-            var identity = await HttpContext.GetOwinContext().Authentication.GetExternalIdentityAsync(
-                DefaultAuthenticationTypes.ApplicationCookie);
-            
-            var userId = identity.FindFirstValue(MyClaimTypes.GoogleUserId);
+            var token = new TokenResponse {
+                AccessToken = user.AccessToken,
+                RefreshToken = user.RefreshToken
+            };
 
-            var token = await dataStore.GetAsync<TokenResponse>(userId);
-            return new UserCredential(flow, userId, token);
+            return new UserCredential(flow, user.Id, token);
         }
-        // GET: /Calendar/UpcomingEvents
-        public async Task<ActionResult> TimesBusy ()
-        {         
-            var model = new CalendarModel();
+        /// <summary>
+        /// Gets the TimePeriods an ApplicationUser with a given Id is busy, on a given interval of time
+        /// </summary>
+        /// <param name="id">The Id of an ApplicationUser</param>
+        /// <param name="start">The lower bound of time on the time interval</param>
+        /// <param name="end">The upper bound of time on the time interval</param>
+        /// <returns>A List of TimePeriods when the AppicationUser's primary calendar is marked as busy.</returns>
+        private async Task<IList<TimePeriod>> GetTimesBusyAsync(string username, DateTime start, DateTime end)
+        {
 
-            var credential = await GetCredentialForApiAsync();
+            var context = new ApplicationDbContext();
+            var user = context.Users.FirstOrDefault(u => u.UserName == username);
+
+            var credential = GetCredentialForApi(user);
 
             var service = new CalendarService(new BaseClientService.Initializer() {
                 HttpClientInitializer = credential,
@@ -59,45 +74,26 @@ namespace Chronos.Controllers
             // Define parameters of request.
             FreeBusyRequest requestBody = new FreeBusyRequest
             {
-                TimeMin = model.StartTime,
-                TimeMax = model.EndTime,
+                TimeMin = start,
+                TimeMax = end,
                 Items = new List<FreeBusyRequestItem> {
                     new FreeBusyRequestItem { Id = "primary" } //only get the "primary" calendar
                 }
             };
             //create request
-            FreebusyResource.QueryRequest request = service.Freebusy.Query(requestBody);
-            //execute request
-            List<string> events = new List<string>();
+            var request = service.Freebusy.Query(requestBody);
+
             try
             {
+                //execute request
                 var queryResult = await request.ExecuteAsync();
+
                 queryResult.Calendars.TryGetValue("primary", out FreeBusyCalendar primaryCalendar);
-                
+
                 //make sure there were no errors
                 if (primaryCalendar.Errors == null)
                 {
-
-                    DateTime last = model.StartTime.AddDays(-1);
-
-                    foreach (TimePeriod time in primaryCalendar.Busy)
-                    {
-                        DateTime start = DateTime.Parse(time.Start.ToString());
-                        DateTime end = DateTime.Parse(time.End.ToString());
-                        //check if this event is on the same day as the last event
-                        if (!last.Day.Equals(start.Day))
-                        {
-                            events.Add(start.Date.ToShortDateString() +
-                                " - Busy from " + start.ToShortTimeString() + " to " + end.ToShortTimeString());
-                        }
-                        else
-                        {
-                            string lastDay = events.ElementAt(events.Count - 1);
-                            events.RemoveAt(events.Count - 1);
-                            events.Add(lastDay + " and " + start.ToShortTimeString() + " to " + end.ToShortTimeString());
-                        }
-                        last = start;
-                    }
+                    return primaryCalendar.Busy;
                 }
                 else
                 {
@@ -108,18 +104,69 @@ namespace Chronos.Controllers
                         Console.WriteLine(error.Reason);
                     }
                 }
-                
+
             }
             catch (InvalidOperationException e)
             {
                 Console.WriteLine("Error");
                 Console.WriteLine(e);
-                
-                //throw;
+
             }
-            model.TimesBusy = events;
-            return View(model);
+            return new List<TimePeriod>();
         }
+
+        private IList<TimePeriod> GetOpenTimes(IList<TimePeriod> timesBusy, DateTime start, DateTime end)
+        {
+            var sortedTimes = timesBusy.OrderBy(t => t.Start);
+            IList<TimePeriod> timesFree = new List<TimePeriod>();
+
+            //holds the beginning of a period of free time
+            DateTime begin = start.ToLocalTime();
+
+            foreach (TimePeriod period in sortedTimes)
+            {
+                DateTime pStart = DateTime.Parse(period.Start.ToString());
+                DateTime pEnd = DateTime.Parse(period.End.ToString());
+
+                if (pStart.CompareTo(begin) <= 0)
+                {
+                    if (pEnd.CompareTo(begin) >= 0)
+                        begin = pEnd;
+                }
+                else if (pStart.CompareTo(end) <= 0)
+                {
+                    if (!pStart.Equals(end)) //don't create a TimePeriod where Start == End
+                        timesFree.Add(new TimePeriod { Start = begin, End = pStart });
+                    begin = pEnd;
+                }
+            }
+
+            return timesFree;
+        }
+
+        public async Task<ActionResult> FindMeetingTimes()
+        {
+            var groupId = Int32.Parse(RouteData.Values["id"].ToString());
+            var model = new FindMeetingTimesModel();
+
+            //var appUsers = new ApplicationDbContext().Users;
+            var tasks = new List<Task<IList<TimePeriod>>>();
+            IList<TimePeriod> timesBusy = new List<TimePeriod>();
+            var usernames = groupRepository.GetUsernamesOfGroupById(groupId);
+            foreach (string username in usernames)
+                tasks.Add(GetTimesBusyAsync(username, model.StartTime, model.EndTime));
+            
+            
+            foreach (var task in await Task.WhenAll(tasks))
+                timesBusy = new List<TimePeriod> (timesBusy.Concat(task));
+
+            model.TimesFree = GetOpenTimes(timesBusy, model.StartTime, model.EndTime);
+
+            return PartialView(model);
+            //return View(model);
+        }
+
     }
+    
 
 }

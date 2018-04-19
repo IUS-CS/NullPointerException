@@ -20,5 +20,6 @@ namespace Chronos.Abstract
         void Save();
         List<User> GetMembersByGroupId(int id);
         string GetGroupNameById(int id);
+        List<string> GetUsernamesOfGroupById(int id);
     }
 }

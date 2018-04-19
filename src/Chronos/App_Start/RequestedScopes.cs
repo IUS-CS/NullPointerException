@@ -17,7 +17,7 @@ namespace Chronos
                 return new[] {
                     PlusService.Scope.PlusLogin,
                     PlusService.Scope.UserinfoEmail,
-                    PlusService.Scope.UserinfoProfile,
+                   // PlusService.Scope.UserinfoProfile,
                     CalendarService.Scope.CalendarReadonly,
                 };
             }

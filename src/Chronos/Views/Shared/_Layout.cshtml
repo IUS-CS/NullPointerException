@@ -28,6 +28,13 @@
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script>
+        $(function () {
+            $(".partial_contents").each(function (index, item) {
+                $(item).load("@Url.Content("~")" +  $(item).data("url"));
+            });
+        });
+    </script>
     @RenderSection("Scripts", required: false)
     @RenderSection("pagescripts", required: false)
 </body>

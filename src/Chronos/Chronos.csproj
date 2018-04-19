@@ -19,9 +19,12 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44372</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -262,14 +265,6 @@
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
-    <Compile Include="Migrations\201804090258545_InitialCreate.cs" />
-    <Compile Include="Migrations\201804090258545_InitialCreate.Designer.cs">
-      <DependentUpon>201804090258545_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804121426247_addUserAccessAndRefreshToken.cs" />
-    <Compile Include="Migrations\201804121426247_addUserAccessAndRefreshToken.Designer.cs">
-      <DependentUpon>201804121426247_addUserAccessAndRefreshToken.cs</DependentUpon>
-    </Compile>
     <Compile Include="Entities\User.cs" />
     <Compile Include="Controllers\InviteController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -280,18 +275,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
-    <Compile Include="Migrations\201804121924320_ChronosMigration.cs" />
-    <Compile Include="Migrations\201804121924320_ChronosMigration.Designer.cs">
-      <DependentUpon>201804121924320_ChronosMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201804180136182_InitialBSchema.cs" />
+    <Compile Include="Migrations\201804180136182_InitialBSchema.Designer.cs">
+      <DependentUpon>201804180136182_InitialBSchema.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804132329469_Add-Migration Chronos.cs" />
-    <Compile Include="Migrations\201804132329469_Add-Migration Chronos.Designer.cs">
-      <DependentUpon>201804132329469_Add-Migration Chronos.cs</DependentUpon>
+    <Compile Include="Migrations\201804180139504_InitialASchema.cs" />
+    <Compile Include="Migrations\201804180139504_InitialASchema.Designer.cs">
+      <DependentUpon>201804180139504_InitialASchema.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\ConfigurationB.cs" />
+    <Compile Include="Migrations\ConfigurationA.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
-    <Compile Include="Models\CalendarModel.cs" />
+    <Compile Include="Models\FindMeetingTimesModel.cs" />
     <Compile Include="Models\GroupContentModel.cs" />
     <Compile Include="Models\ProfilePageModel.cs" />
     <Compile Include="Models\SearchUserModel.cs" />
@@ -308,7 +305,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Calendar\TimesBusy.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -322,6 +318,7 @@
     <Content Include="Views\Shared\SearchUser.cshtml" />
     <Content Include="Views\Profile\ProfilePage.cshtml" />
     <Content Include="Views\Home\NewUserPage.cshtml" />
+    <Content Include="Views\Shared\FindMeetingTimes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -331,23 +328,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Calendar\" />
     <Folder Include="Views\Group\" />
     <Folder Include="Views\Invite\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804121924320_ChronosMigration.resx">
-      <DependentUpon>201804121924320_ChronosMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804180136182_InitialBSchema.resx">
+      <DependentUpon>201804180136182_InitialBSchema.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804132329469_Add-Migration Chronos.resx">
-      <DependentUpon>201804132329469_Add-Migration Chronos.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804090258545_InitialCreate.resx">
-      <DependentUpon>201804090258545_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804121426247_addUserAccessAndRefreshToken.resx">
-      <DependentUpon>201804121426247_addUserAccessAndRefreshToken.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804180139504_InitialASchema.resx">
+      <DependentUpon>201804180139504_InitialASchema.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,25 +1,25 @@
-﻿using System;
+﻿using Google.Apis.Calendar.v3.Data;
+using System;
 using System.Collections.Generic;
 
 using System.ComponentModel.DataAnnotations;
 
 namespace Chronos.Models
 {
-    public class CalendarModel
+    public class FindMeetingTimesModel
     {   
         [Required]
         public DateTime StartTime { get; set; }
         [Required]
         public DateTime EndTime { get; set; }
-        [Required]
-        public List<string> TimesBusy { get; set; }
+        
+        public IList<TimePeriod> TimesFree { get; set; }
 
-
-
-        public CalendarModel ()
+        public FindMeetingTimesModel ()
         {
-            StartTime = DateTime.UtcNow;
+            StartTime = DateTime.Now;
             EndTime = StartTime.AddDays(7);
         }
+        
     }
 }

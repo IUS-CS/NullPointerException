@@ -1,0 +1,25 @@
+﻿@model Chronos.Models.FindMeetingTimesModel
+@{
+    ViewBag.Title = "FindMeetingTimes";
+}
+<div>
+    
+    <ul class="list-group" id="eventList">
+        @using Google.Apis.Calendar.v3.Data
+        @using Chronos.Helpers
+        @if (Model.TimesFree.Count() == 0)
+        {
+            <li class="list-group-item">There are no open meeting times</li>
+        }
+        else
+        {
+            foreach (TimePeriod time in Model.TimesFree)
+            {
+                <li class="list-group-item">
+                    Open: @Helpers.TimePeriodToString(time)
+                </li>
+            }
+        }
+    </ul>
+</div>
+
