@@ -88,5 +88,17 @@ namespace Chronos.Concrete
         {
             context.SaveChanges();
         }
+
+        public List<string> GetUsernamesOfGroupById(int id)
+        {
+            return context.MemberItems
+                .Join(context.Users,
+                x => x.UserId,
+                y => y.Id,
+                (x, y) => new { user = y, memberitem = x })
+                .Where(x => x.memberitem.GroupId == id)
+                .Select(x => x.user.Username)
+                .ToList();
+        }
     }
 }

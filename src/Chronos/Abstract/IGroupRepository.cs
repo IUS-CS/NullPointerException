@@ -15,5 +15,6 @@ namespace Chronos.Abstract
         Group GetFirstUserGroupById(int id);
         int CreateGroup(string name, int userId);
         void Save();
+        List<string> GetUsernamesOfGroupById(int id);
     }
 }

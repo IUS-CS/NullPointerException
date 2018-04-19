@@ -46,24 +46,5 @@ namespace Chronos.Controllers
             var group = groupRepository.GetGroupById(Int32.Parse(groupId.ToString()));
             return View(group);
         }
-        /*
-        [HttpGet]
-        public ActionResult Login() {
-            return View();
-        }
-        */
-        [HttpPost]
-        public RedirectToRouteResult Login(User user)
-        {
-            var result = userRepository.GetUserByUsername(user.Username);
-            if (result == null)
-            {
-                userRepository.Insert(user);
-                userRepository.Save();
-            }
-            result = userRepository.GetUserByUsername(user.Username);
-            var group = groupRepository.GetFirstUserGroupById(result.Id);
-            return RedirectToAction("Index", new { id = group.Id});
-        }
     }
 }
