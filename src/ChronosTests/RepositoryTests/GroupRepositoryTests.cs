@@ -92,12 +92,22 @@ namespace ChronosTests.RepositoryTests
 
         public string GetGroupNameById(int id)
         {
-            return "";
+            return mContext.Groups
+                .Where(x => x.Id == id)
+                .Select(x => x.GroupName)
+                .First();
         }
 
         public List<string> GetUsernamesOfGroupById(int id)
         {
-            return new List<string>();
+            return mContext.MemberItems
+                .Join(mContext.Users,
+                x => x.UserId,
+                y => y.Id,
+                (x, y) => new { user = y, memberitem = x })
+                .Where(x => x.memberitem.GroupId == id)
+                .Select(x => x.user.Username)
+                .ToList();
         }
     }
 
@@ -192,6 +202,32 @@ namespace ChronosTests.RepositoryTests
 
             //Cleanup
             groupRepo.Remove();
+        }
+
+        [TestMethod]
+        public void GetGroupNameByIdReturnsCorrectGroupName()
+        {
+            //Arrange
+            int id = 1;
+
+            //Act
+            var result = groupRepo.GetGroupNameById(id);
+
+            //Assert
+            Assert.IsTrue(result.Equals("TestGroup"));
+        }
+
+        [TestMethod]
+        public void GetUsernamesOfGroupByIdReturnsCorrectUsernames()
+        {
+            //Arrange
+            int id = 1;
+
+            //Act
+            var result = groupRepo.GetUsernamesOfGroupById(id);
+
+            //Assert
+            Assert.IsTrue(result[0].Equals("TestUser"));
         }
     }
 }
