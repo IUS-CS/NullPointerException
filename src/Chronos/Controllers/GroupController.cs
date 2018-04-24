@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Chronos.Concrete;
+﻿using System.Web.Mvc;
 using Chronos.Abstract;
 using Chronos.Entities;
 using System.Web.Routing;
@@ -18,14 +13,24 @@ namespace Chronos.Controllers
             groupRepository = groupRepositoryParam;
         }
         
+        /// <summary>
+        /// Creates a group
+        /// </summary>
+        /// <param name="group">the grou pname to be created</param>
+        /// <returns>a new view of the created group's page</returns>
         [HttpPost]
         public RedirectToRouteResult CreateGroup(Group group)
         {
-            int newGroupId = groupRepository.CreateGroup(group.GroupName, 1); //TODO: user id is hard coded, needs to come from session
+            int newGroupId = groupRepository.CreateGroup(group.GroupName, (int) Session["CurrentUserId"]); 
             return RedirectToAction("Index", new RouteValueDictionary(
                 new { controller = "Home", action = "Index", Id = newGroupId }));
         }
 
+        /// <summary>
+        /// Switches the group page the user is viewing
+        /// </summary>
+        /// <param name="group">The group to be switched to</param>
+        /// <returns>a new page showing the new group</returns>
         public RedirectToRouteResult SwitchGroup(Group group)
         {
             return RedirectToAction("Index", new RouteValueDictionary(

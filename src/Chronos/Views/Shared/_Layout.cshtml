@@ -3,15 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Chronos</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    @if (ViewBag.Title != "Login")
+    @if (ViewBag.Title != "Login" && ViewBag.Title != "Register")
     {
-        @Html.Partial("Header", (List<Chronos.Entities.Group>) ViewBag.UserGroups)
+        @Html.Partial("Header", Session["UserGroups"])
     }
 
         <div class="container body-content">
@@ -28,5 +27,15 @@
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script>
+        $(function () {
+            $(".partial_contents").each(function (index, item) {
+                $(item).load("@Url.Content("~")" +  $(item).data("url"));
+            });
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+    @RenderSection("pagescripts", required: false)
 </body>
 </html>

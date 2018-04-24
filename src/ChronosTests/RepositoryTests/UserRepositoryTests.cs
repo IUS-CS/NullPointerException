@@ -1,10 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Chronos.Concrete;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Chronos.Entities;
-using Chronos.Models;
-using Moq;
-using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using Chronos.Abstract;
@@ -68,6 +63,28 @@ namespace ChronosTests.RepositoryTests
         public void Save()
         {
             //Needed to satisfy interface
+        }
+
+        public string GetUsernameById(int id)
+        {
+            return mContext.Users
+                .Where(x => x.Id == id)
+                .Select(x => x.Username)
+                .First();
+        }
+
+        public User GetUserById(int id)
+        {
+            return mContext.Users
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+        }
+
+        public List<User> SearchUserInvite(string username, List<int> memberIds)
+        {
+            return mContext.Users
+                .Where(x => x.Username.Contains(username) && !memberIds.Contains(x.Id))
+                .ToList();
         }
     }
 
@@ -158,5 +175,50 @@ namespace ChronosTests.RepositoryTests
             }
         }
 
+        [TestMethod]
+        public void GetUsernameByIdReturnsCorrectUsername()
+        {
+            //Arrange
+            var id = 1;
+
+            //Act
+            var result = userRepo.GetUsernameById(id);
+
+            //Assert
+            Assert.IsTrue(result.Equals("TestUser"));
+        }
+
+        [TestMethod]
+        public void GetUserByIdReturnsCorrectUser()
+        {
+            //Arrange
+            var id = 1;
+
+            //Act
+            var result = userRepo.GetUserById(id);
+
+            //Assert
+            Assert.IsTrue(result.Username.Equals("TestUser"));
+
+        }
+
+        [TestMethod]
+        public void SearchUserInviteReturnsCorrectUsers()
+        {
+            //Arrange
+            userRepo.Insert(new User { Id = 2, Username = "TestUser2" });
+            var username = "TestUser";
+            var memberIds = new List<int>
+            {
+                1
+            };
+
+            //Act
+            var result = userRepo.SearchUserInvite(username, memberIds);
+
+            //Assert
+            Assert.IsTrue(result[0].Username.Equals("TestUser2"));
+
+        }
     }
 }

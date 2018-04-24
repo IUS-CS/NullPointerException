@@ -1,10 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Chronos.Concrete;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Chronos.Entities;
 using Chronos.Models;
-using Moq;
-using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using Chronos.Abstract;
@@ -34,7 +30,6 @@ namespace ChronosTests.RepositoryTests
             {
                 GroupName = group.GroupName,
                 TodoList = todoItems,
-                Calendar = new Calendar(),
                 Members = members
             };
         }
@@ -93,6 +88,26 @@ namespace ChronosTests.RepositoryTests
         public void Save()
         {
             //Needed to satisfy interface
+        }
+
+        public string GetGroupNameById(int id)
+        {
+            return mContext.Groups
+                .Where(x => x.Id == id)
+                .Select(x => x.GroupName)
+                .First();
+        }
+
+        public List<string> GetUsernamesOfGroupById(int id)
+        {
+            return mContext.MemberItems
+                .Join(mContext.Users,
+                x => x.UserId,
+                y => y.Id,
+                (x, y) => new { user = y, memberitem = x })
+                .Where(x => x.memberitem.GroupId == id)
+                .Select(x => x.user.Username)
+                .ToList();
         }
     }
 
@@ -189,5 +204,30 @@ namespace ChronosTests.RepositoryTests
             groupRepo.Remove();
         }
 
+        [TestMethod]
+        public void GetGroupNameByIdReturnsCorrectGroupName()
+        {
+            //Arrange
+            int id = 1;
+
+            //Act
+            var result = groupRepo.GetGroupNameById(id);
+
+            //Assert
+            Assert.IsTrue(result.Equals("TestGroup"));
+        }
+
+        [TestMethod]
+        public void GetUsernamesOfGroupByIdReturnsCorrectUsernames()
+        {
+            //Arrange
+            int id = 1;
+
+            //Act
+            var result = groupRepo.GetUsernamesOfGroupById(id);
+
+            //Assert
+            Assert.IsTrue(result[0].Equals("TestUser"));
+        }
     }
 }

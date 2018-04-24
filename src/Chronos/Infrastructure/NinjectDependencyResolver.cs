@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Ninject;
 using System.Web.Mvc;
 using Moq;
@@ -31,6 +29,9 @@ namespace Chronos.Infrastructure
             return kernel.GetAll(serviceType);
         }
 
+        /// <summary>
+        /// Tells the DI container which interfaces bind to certain concrete classes
+        /// </summary>
         public void AddBindings()
         {
             Mock<IUserRepository> mock = new Mock<IUserRepository>();
@@ -46,6 +47,7 @@ namespace Chronos.Infrastructure
             kernel.Bind<IGroupRepository>().To<GroupRepository>();
             kernel.Bind<IMemberItemsRepository>().To<MemberItemsRepository>();
             kernel.Bind<IInviteRepository>().To<InviteRepository>();
+            
         }
     }
 }
