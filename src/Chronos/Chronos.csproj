@@ -328,7 +328,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Calendar\" />
     <Folder Include="Views\Group\" />
     <Folder Include="Views\Invite\" />
   </ItemGroup>

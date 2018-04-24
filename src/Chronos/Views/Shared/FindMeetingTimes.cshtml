@@ -3,7 +3,13 @@
     ViewBag.Title = "FindMeetingTimes";
 }
 <div>
-    
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            
+            @*@Html.TextBoxFor(model => model.StartTime, new { @type = "date", @class = "input-sm" }, @Value = Model.StartTime.ToString("yyyy-MM-dd"))*@
+        </div>
+    }
     <ul class="list-group" id="eventList">
         @using Google.Apis.Calendar.v3.Data
         @using Chronos.Helpers

@@ -98,6 +98,11 @@ namespace ChronosTests.RepositoryTests
         {
             return "";
         }
+
+        public List<string> GetUsernamesOfGroupById(int id)
+        {
+            return new List<string>();
+        }
     }
 
     [TestClass]

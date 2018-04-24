@@ -22,11 +22,7 @@
     @Html.Partial("Members", Model)
 </div>
 <p>
-    @if (Request.IsAuthenticated)
-    {
-        <a class="btn btn-default" href="@Url.Action("FindMeetingTimes", "Calendar")">Find Meeting Times &raquo;</a>
-    }
-    else
+    @if (!Request.IsAuthenticated)
     {
         <a class="btn btn-default" href="@Url.Action("Login", "Account")">Log in &raquo;</a>
     }
