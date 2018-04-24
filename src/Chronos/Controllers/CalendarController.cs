@@ -47,7 +47,7 @@ namespace Chronos.Controllers
         /// <summary>
         /// Gets the TimePeriods an ApplicationUser, with a given Id is busy, on a given interval of time
         /// </summary>
-        /// <param name="id">The Id of an ApplicationUser</param>
+        /// <param name="username">The Id of an ApplicationUser</param>
         /// <param name="start">The lower bound of time on the time interval</param>
         /// <param name="end">The upper bound of time on the time interval</param>
         /// <returns>A List of TimePeriods when the AppicationUser's primary calendar is marked as busy.</returns>
@@ -98,7 +98,7 @@ namespace Chronos.Controllers
                 }
 
             }
-            catch (InvalidOperationException e)
+            catch (Exception e)
             {
                 Console.WriteLine("Error");
                 Console.WriteLine(e);
