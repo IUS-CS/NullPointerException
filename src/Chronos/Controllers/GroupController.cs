@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Chronos.Concrete;
+﻿using System.Web.Mvc;
 using Chronos.Abstract;
 using Chronos.Entities;
 using System.Web.Routing;

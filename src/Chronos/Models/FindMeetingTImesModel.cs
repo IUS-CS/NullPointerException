@@ -20,6 +20,5 @@ namespace Chronos.Models
             StartTime = DateTime.Now;
             EndTime = StartTime.AddDays(7);
         }
-        
     }
 }

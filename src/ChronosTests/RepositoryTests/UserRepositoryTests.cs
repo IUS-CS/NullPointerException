@@ -1,10 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Chronos.Concrete;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Chronos.Entities;
-using Chronos.Models;
-using Moq;
-using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using Chronos.Abstract;
@@ -172,6 +167,5 @@ namespace ChronosTests.RepositoryTests
                 Assert.IsTrue(userRepo.Users.Contains(user));
             }
         }
-
     }
 }

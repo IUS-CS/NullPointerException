@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-
 using Chronos.Models;
 
 namespace Chronos
@@ -74,7 +70,6 @@ namespace Chronos
                 DefaultAuthenticationTypes.ExternalCookie);
             if (externalIdentity != null)
             {
-                // ***
                 // Copy the claim that our external authentication provider set (in Startup.Auth.cs) over
                 // to the user's application identity.
 

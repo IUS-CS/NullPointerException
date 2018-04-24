@@ -4,10 +4,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-
 using Chronos.Models;
 using System.Linq;
-using Chronos.Entities;
 
 namespace Chronos.Controllers
 {
@@ -51,7 +49,6 @@ namespace Chronos.Controllers
             }
         }
 
-        //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -60,7 +57,6 @@ namespace Chronos.Controllers
             return View();
         }
 
-        //
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -71,7 +67,6 @@ namespace Chronos.Controllers
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
-        //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
@@ -106,7 +101,6 @@ namespace Chronos.Controllers
             }
         }
 
-        //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
@@ -163,7 +157,6 @@ namespace Chronos.Controllers
             return View(model);
         }
 
-        //
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -173,7 +166,6 @@ namespace Chronos.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
@@ -210,7 +202,6 @@ namespace Chronos.Controllers
             get
             {
                 return HttpContext.GetOwinContext().Authentication;
-                //return DependencyResolver.Current.GetService(typeof(IAuthenticationManager)) as IAuthenticationManager;
             }
         }
 

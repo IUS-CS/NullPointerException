@@ -1,15 +1,11 @@
-﻿using Chronos.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Chronos.Abstract;
 using Chronos.Entities;
 using Microsoft.AspNet.Identity;
-using System.Threading.Tasks;
 using Microsoft.Owin.Security;
-using Chronos.Concrete;
 
 namespace Chronos.Controllers
 {

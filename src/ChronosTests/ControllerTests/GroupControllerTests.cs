@@ -1,18 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Chronos.Controllers;
 using Moq;
-using System.Collections.Generic;
-using Chronos.Models;
 using Chronos.Entities;
-using Chronos.Concrete;
 using Chronos.Abstract;
-using System.Web.Mvc;
-using System.Diagnostics;
 
 namespace ChronosTests.ControllerTests
 {
-
     [TestClass]
     public class GroupControllerTests
     {
@@ -44,6 +37,5 @@ namespace ChronosTests.ControllerTests
             mRepo.Verify(m => m.CreateGroup(It.IsAny<string>(), It.IsAny<int>()), Times.Once());
             
         }
-        
     }
 }

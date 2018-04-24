@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Chronos
+﻿namespace Chronos
 {
     /// <summary>
     /// Holds the Google API client secrets.

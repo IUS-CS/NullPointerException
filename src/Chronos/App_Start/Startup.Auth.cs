@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
-
 using Owin;
-
 using Chronos.Models;
 using Google.Apis.Util.Store;
 using Google.Apis.Auth.OAuth2;
@@ -21,8 +18,6 @@ namespace Chronos
         // The data store we use to save the user's access token once they log in.
         private IDataStore dataStore = new FileDataStore(GoogleWebAuthorizationBroker.Folder);
 
-        // For more information on configuring authentication, please visit
-        // http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
 
@@ -59,7 +54,6 @@ namespace Chronos
             // on the device where you logged in from. This is similar to the RememberMe option when you log in.
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
-            // ***
             // Enables logging in with the Google login provider.
             var google = new GoogleOAuth2AuthenticationOptions()
             {
@@ -70,7 +64,6 @@ namespace Chronos
                 {
                     OnAuthenticated = async context =>
                     {
-
                         var userId = context.Id;
                         if (!String.IsNullOrEmpty(context.RefreshToken))
                         {

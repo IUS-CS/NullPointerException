@@ -1,6 +1,5 @@
 ﻿using Chronos.Entities;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 
 namespace Chronos.Concrete
 {
