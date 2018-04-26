@@ -4,26 +4,45 @@
     ViewBag.Title = "ProfilePage";
 }
 
-<h2>ProfilePage</h2>
+
+<style type="text/css">
+    li.list-group-item {
+        font-size: 1.5em;
+    }
+
+</style>
+
+<h1 class="text-center">Welcome <i>@Context.User.Identity.Name!</i></h1>
 
 <div class="row">
-    <div class="col-xs-6">
+    <div class="col-xs-6 text-center">
         <ul class="list-group">
-            <li class="list-group-item"><h2>Your Groups</h2></li>
+            <li class="list-group-item"><h2>Your groups</h2></li>
+            @if (Model.Groups.Count == 0)
+            {
+                <li class="list-group-item">You aren't in any groups yet</li>
+            }
             @foreach (var group in Model.Groups)
-    {
-        <li class="list-group-item">@group.GroupName</li>
-}
+            {
+                <li class="list-group-item text-capitalize">@group.GroupName - @Html.ActionLink("Go To Team", "SwitchGroup", "Group", group, null)</li>
+            }
         </ul>
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-6 text-center">
         <ul class="list-group">
             <li class="list-group-item"><h2>Your invites</h2></li>
-            @foreach(var invite in Model.Invites)
+            @if (Model.Invites.Count == 0)
             {
-                <li  class="list-group-item clearfix"><b>@invite.Item3</b> invites you to <b>@invite.Item2</b> <span class="pull-right">
-                    <button class="btn btn-success accept" data-id="@invite.Item1.Id" data-userid="@invite.Item1.UserId" data-groupid="@invite.Item1.GroupId">Accept</button> 
-                    <button class="btn btn-danger decline" data-id="@invite.Item1.Id">Decline</button></span></li>
+                <li class="list-group-item">You have no new invites.</li>
+            }
+            @foreach (var invite in Model.Invites)
+            {
+                <li class="list-group-item clearfix">
+                    <b>@invite.Item3</b> invites you to <b>@invite.Item2</b> <span class="pull-right">
+                        <button class="btn btn-success accept" data-id="@invite.Item1.Id" data-userid="@invite.Item1.UserId" data-groupid="@invite.Item1.GroupId">Accept</button>
+                        <button class="btn btn-danger decline" data-id="@invite.Item1.Id">Decline</button>
+                    </span>
+                </li>
             }
         </ul>
     </div>

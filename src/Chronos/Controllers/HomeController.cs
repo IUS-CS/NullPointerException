@@ -58,5 +58,9 @@ namespace Chronos.Controllers
             var group = groupRepository.GetGroupById(Int32.Parse(groupId.ToString()));
             return View(group);
         }
+        public ActionResult UserProfile()
+        {
+            return View();
+        }
     }
 }
