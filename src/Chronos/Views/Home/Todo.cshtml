@@ -1,0 +1,15 @@
+﻿@*@model Chronos.Models.TodoList*@
+
+<div id="todo" class="tab-pane fade in">
+    <h2>To Do List</h2>
+    <div class="row">
+        @*@Html.TextBoxFor(m => m.TodoList, new { placeholder = "Add items here!", Value = ""})*@
+        <button id="add_item" class="btn btn-success"><span class="glyphicon-plus"></span></button>
+    </div>
+    <ul>
+        @*@foreach (var item in Model.TodoList)
+        {
+            <li>@item.Text</li>
+        }*@
+    </ul>
+</div>

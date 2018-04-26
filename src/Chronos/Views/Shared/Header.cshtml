@@ -1,0 +1,38 @@
+﻿@model List<Chronos.Entities.Group>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Chronos", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Your Groups
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @foreach(var item in Model)
+                            {
+                            <li>@Html.ActionLink(item.GroupName, "SwitchGroup", "Group", item, null)</li>
+                            }
+                        </ul>
+                    </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="@Url.Action("ProfilePage", "Profile")">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Your page
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
